@@ -1,0 +1,295 @@
+html {
+  height: 100vh; /* "viewport height" - ocupa sempre a altura toda da janela mesmo que redimensiodada */
+  margin: 0;
+  display: flex; /* cria um layout flexível  */
+  justify-content: center; /* alinha horizontal */
+  width: 100%;
+  background-image: url(Imagens/download.png);
+  background-size: cover;
+  padding: 0;
+}
+header {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  min-height: 30px;
+  height: 5%;
+  width: 100%;
+  align-items: center;
+}
+main {
+  display: flex;
+  justify-content: space-between;
+  height: 85%;
+  width: 100%; /* Ocupa a largura total */
+}
+body {
+  display: flex;
+  align-items: center;
+}
+footer {
+  height: 5%;
+  width: 100%; /* Ocupa a largura total */
+  text-align: center;
+  vertical-align: sub;
+  flex-wrap: nowrap;
+  font-size: 10px;
+}
+h1 {
+  text-align: center;
+}
+h2 {
+  font-size: 24px;
+  margin: 0px;
+}
+h3 {
+  text-align: left;
+}
+/*Disgn da janela, bordas e sombras*/
+.w-design {
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0.5px 2px 0.5px black;
+  border-radius: 8px;
+}
+.w-design:hover {
+  box-shadow: 1px 3px 1px black;
+  border-radius: 8px;
+}
+/*Dimensões da janela*/
+.w-size {
+  height: 450px;
+  width: 300px;
+  margin: 50px auto;
+  padding: 20px;
+}
+/*Posicionamento dos elementos*/
+.w-align {
+  display: flex;
+  flex-direction: column;
+}
+/*Dimensões e disgin da janela principal do Scrum*/
+.w-main {
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 70rem; /* largura */
+  height: 85%;
+  max-width: 85%;
+  margin: auto;
+  padding: 20px;
+}
+/* Disgn do titulo da janela principal do Scrum */
+.w-main .title {
+  display: flex;
+  justify-content: left;
+  margin: 0px;
+  padding: 0px;
+  font-size: 10px;
+}
+/* Disgn do titulo da janela de Login */
+.login-title {
+  color: black;
+  text-transform: uppercase;
+}
+/* Altura da caixa de texto */
+.text-box {
+  height: 1.5rem;
+}
+/* Disgn da caixa de texto */
+.box-design {
+  border-radius: 6px;
+  border: solid 1px black;
+}
+.box-design:hover {
+  box-shadow: 0.5px 1.5px 0.5px black;
+}
+.left-align {
+  text-align: left;
+}
+/* Tamanho da caixa de texto para as descrições */
+.description-text {
+  height: 15rem;
+  resize: none;
+  width: 100%;
+}
+/* Disgn da janela do Modal */
+.w-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: white;
+  display: none; /* Esconde o modal */
+  z-index: 10;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+/* Disgn do fundo do modal centrado, fixo, invisivel incialmente*/
+.modal-background {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9; /* Z-index menor que o modal para garantir que esteja abaixo */
+}
+/* Disgn da janela do modal */
+.modal-design {
+  display: flex;
+  flex-direction: column;
+  margin: 0px;
+}
+/* Container do titulo e das colunas */
+.container-columns-title {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  max-height: 96%;
+  max-width: 100%;
+  border-radius: 8px;
+  margin: 1%;
+}
+/* Container principal das colunas */
+.container-columns {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: stretch;
+  align-content: stretch;
+  height: 100%;
+  width: 100%;
+}
+/* Container das tarefas onde podem ser largadas */
+.coluna {
+  width: 100%; /* Ajuste a largura conforme necessário */
+  height: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+  direction: inherit;
+}
+/* Disgn das tarefas */
+.task {
+  background-color: white;
+  padding: 10%;
+  margin: 0.5rem 5%;
+  border-radius: 8px;
+  cursor: pointer;
+  align-items: center;
+  border: solid 1px black;
+  box-shadow: 0.5px 2px 0.5px black;
+}
+.task:hover {
+  box-shadow: 1px 3px 1px black;
+}
+/* Disgn do titulo das colunas */
+.column-title {
+  text-align: center;
+  font-size: 24px;
+  color: black;
+  text-transform: uppercase;
+  border-radius: 8px;
+  padding: 5px;
+  margin-top: 0px;
+  border: solid 1px black;
+  margin-bottom: 0px;
+  box-shadow: 0px 0px 5px 0px;
+  z-index: 3;
+}
+.todo {
+  background-color: #577988;
+}
+.doing {
+  background-color: #aaa8a4;
+}
+.done {
+  background-color: #f27752;
+}
+/* Disgn do botão */
+.btn {
+  border: solid 1px black;
+  color: black;
+  background-color: white;
+  border-radius: 8px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 5px;
+  box-shadow: 0.5px 2px 0.5px black;
+}
+.btn:hover {
+  background-color: #1c3743;
+  color: white;
+  box-shadow: none;
+}
+/* Username no quadro Scrum */
+#nomeAaparecerNoEcra {
+  color: black;
+  font-weight: bolder;
+  vertical-align: center;
+  text-shadow: 0px 1px 0px gray; /* Sombra do texto */
+}
+/* Disgn do item durante o arrastamento */
+.dragging {
+  opacity: 0.5;
+  border-style: dashed;
+  box-shadow: 0px 0px 0px 0px;
+}
+/* Cor do botão de cancelar */
+.red {
+  background-color: rgb(218, 76, 76);
+}
+.red:hover {
+  background-color: rgb(255, 0, 0);
+}
+/* Cor do botão de adicionar */
+.green {
+}
+.green:hover {
+  background-color: rgb(125, 207, 125);
+}
+/* Centralização dos elementos do container */
+.center-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* Disgn do botão de adicionar antes de algo */
+.plus::before {
+  content: "\2795"; /* Unicode for heavy plus sign */
+  color: white;
+}
+.logo-dimension {
+  margin-left: 5px;
+  width: 50px;
+  height: 50px;
+}
+/* Disgn do container dos botões */
+.container-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0px;
+  gap: 10px;
+}
+/* Disgn do botão de login */
+.login {
+  width: 10rem;
+  height: 2rem;
+  background-color: #1c3743;
+  color: white;
+}
+.login:hover {
+  background-color: #577988;
+}
+/* Margem extra */
+.margin {
+  margin-top: 1.2rem;
+  margin-bottom: 0px;
+}
+.error-info {
+  font-size: 0.7rem;
+}
+/* Fonte igual em todo o site */
+* {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Scrum Board</title>
+  </head>
+  <body>
+    <div class="w-design w-size w-align">
+      <div class="title"><h2>Editar Tarefa</h2></div>
+      <div class="modal-design margin">
+        <label class="left-align"><b>Nome da Tarefa:</b></label>
+        <input type="text" class="text-box box-design" id="taskName" />
+
+        <label id="editTaskDescription" class="left-align margin"
+          ><b>Descrição:</b></label
+        >
+        <textarea
+          id="taskDescription"
+          class="text-box box-design description-text"
+        ></textarea>
+        <div class="container-btn margin">
+          <button class="btn green" onclick="editTask()">Gravar</button>
+          <button class="btn" onclick="deleteTask(),backToHome()">
+            Eliminar
+          </button>
+          <button
+            onclick="backToHome()"
+            class="btn red"
+            id="close-button-color"
+          >
+            Cancelar
+          </button>
+        </div>
+        <div class="center-container error-info" id="error-edit"></div>
+      </div>
+    </div>
+    <script src="edit-task.js"></script>
+  </body>
+</html>

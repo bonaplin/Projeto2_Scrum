@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Scrum Board</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="w-design w-main">
+      <div class="title left-align">
+        <h1>Scrum Board</h1>
+        <img
+          src="./Imagens/logoScrum.png"
+          class="logo-dimension"
+          alt="scrumlogo"
+        />
+      </div>
+      <header>
+        <button
+          type="button"
+          class="btn plus"
+          id="createTask"
+          onclick="openAddTaskModal()"
+        >
+          Adicionar tarefa
+        </button>
+        <div>
+          <label id="nomeAaparecerNoEcra"></label>
+          <button type="button" class="btn" id="logout" onclick="logout()">
+            Logout
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <div class="container-columns">
+          <div class="container-columns-title w-design">
+            <h2 class="column-title todo">To do</h2>
+            <div class="coluna" id="ToDo"></div>
+          </div>
+          <div class="container-columns-title w-design">
+            <h2 class="column-title doing">Doing</h2>
+            <div class="coluna" id="doing"></div>
+          </div>
+          <div class="container-columns-title w-design">
+            <h2 class="column-title done">Done</h2>
+            <div class="coluna" id="done"></div>
+          </div>
+        </div>
+
+        <!-- Modal -->
+        <div id="addTaskModal" class="w-modal w-design w-size w-align">
+          <h2 class="left-align margin">Adicionar Tarefa</h2>
+          <form onsubmit="addTaskModal(); return false;">
+            <div class="modal-design">
+              <label for="addTaskName" class="left-align margin"
+                ><b>Nome da Tarefa:</b></label
+              >
+              <input
+                type="text"
+                id="addTaskName"
+                class="text-box box-design"
+                placeholder="Nome da Tarefa"
+                required
+              />
+              <label for="addTaskDescription" class="left-align margin"
+                ><b>Descrição:</b></label
+              >
+              <textarea
+                id="addTaskDescription"
+                class="text-box box-design description-text"
+                placeholder="Descrição da Tarefa"
+                required
+              ></textarea>
+            </div>
+          </form>
+          <div class="container-btn margin">
+            <button type="submit" class="btn" onclick="addTaskModal(event)">
+              Adicionar
+            </button>
+
+            <button
+              onclick="closeAddTaskModal()"
+              class="btn red"
+              id="close-button-color"
+            >
+              Cancelar
+            </button>
+          </div>
+          <div class="center-container error-info" id="error-create"></div>
+        </div>
+        <!-- Fundo escuro no painel inferior -->
+        <div class="modal-background" onclick="closeAddTaskModal()"></div>
+      </main>
+      <footer>
+        AoR - Projeto 1 - Quadro Scrum ®<br />
+        Ricardo Elias, Ricardo Carvalho
+      </footer>
+    </div>
+    <script src="./scrum-board.js"></script>
+  </body>
+</html>
