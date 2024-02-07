@@ -58,7 +58,7 @@ h3 {
 /*Dimensões da janela*/
 .w-size {
   height: 450px;
-  width: 300px;
+  width: 400px;
   margin: 50px auto;
   padding: 20px;
 }
@@ -292,4 +292,18 @@ h3 {
 /* Fonte igual em todo o site */
 * {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#recover-password{
+  padding-top: 4%;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-box-register{
+  margin-bottom: -20px;
 }
