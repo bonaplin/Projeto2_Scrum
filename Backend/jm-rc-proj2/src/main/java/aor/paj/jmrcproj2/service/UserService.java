@@ -17,5 +17,23 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.Path;
+@Path("/user")
 public class UserService {
+    @Inject
+    UserBean userBean;
+
+    @POST
+    @Path("/add")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addUser(User u) {
+        userBean.addUser(u);
+        return Response.status(201).entity("A new user is created").build();
+
+    }
+    @GET
+    @Path("/all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<User> getUsers() {
+        return userBean.getUsers();
+    }
 }
