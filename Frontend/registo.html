@@ -1,33 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css" />
     <title>Scrum Board</title>
   </head>
   <body>
-    <div class="w-design w-size w-align">
-      <h1 class="login-title margin">Registo</h1>
-      <form>
+    <div class="w-design w-size-form w-align">
+      <h1 class="login-title">Registo</h1>
+      <form id="register-form">
         <label for="usernameRegister">Username:</label>
-        <input type="text" class="text-box-register box-design" id="usernameRegister" name="usernameRegister" required><br>
+        <input
+          type="text"
+          class="text-box-register box-design"
+          id="usernameRegister"
+          name="usernameRegister"
+          required
+        /><br />
         <label for="passwordRegister">Password:</label>
-        <input type="password" class="text-box-register box-design" id="passwordRegister" name="passwordRegister" required><br>
+        <input
+          type="password"
+          class="text-box-register box-design"
+          id="passwordRegister"
+          name="passwordRegister"
+          required
+        /><br />
         <label for="emailRegister">Email:</label>
-        <input type="email" class="text-box-register box-design" id="emailRegister" name="emailRegister" required><br>
+        <input
+          type="email"
+          class="text-box-register box-design"
+          id="emailRegister"
+          name="emailRegister"
+          required
+        /><br />
         <label for="firstNameRegister">First Name:</label>
-        <input type="text" class="text-box-register box-design" id="firstNameRegister" name="firstNameRegister" required><br>
+        <input
+          type="text"
+          class="text-box-register box-design"
+          id="firstNameRegister"
+          name="firstNameRegister"
+          required
+        /><br />
         <label for="lastnameRegister">Last name:</label>
-        <input type="text" class="text-box-register box-design" id="lastnameRegister" name="lastnameRegister" required><br>
+        <input
+          type="text"
+          class="text-box-register box-design"
+          id="lastnameRegister"
+          name="lastnameRegister"
+          required
+        /><br />
         <label for="phoneRegister">Telephone:</label>
-        <input type="tel" class="text-box-register box-design" id="phoneRegister" name="phoneRegister" required><br>
+        <input
+          type="tel"
+          class="text-box-register box-design"
+          id="phoneRegister"
+          name="phoneRegister"
+          required
+        /><br />
         <label for="photoRegister">Profile Photo URL:</label>
-        <input type="url" id="photoRegister" name="photoRegister" placeholder="Enter the URL of your profile photo" required><br>
-        <input type="reset">
-        <input type="submit">
-</form>
+        <input
+          type="url"
+          class="text-box-register box-design"
+          id="photoRegister"
+          name="photoRegister"
+          placeholder="Enter the URL of your profile photo"
+          required
+        /><br />
+        <div class="container-btn">
+          <input class="btn" type="reset" />
+          <input class="btn green" type="submit" />
+        </div>
+      </form>
     </div>
-    <script src="./index.js"></script>
+    <script src="./registo.js"></script>
   </body>
 </html>
