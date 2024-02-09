@@ -37,4 +37,15 @@ public class UserService {
     public List<User> getUsers() {
         return userBean.getUsers();
     }
+    @Path("/login")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response loginUser(User u) {
+        User existingUser = userBean.verifyUser(u.getUsername(), u.getPassword());
+        if (existingUser != null) {
+            return Response.status(200).entity("User logged in successfully").build();
+        } else {
+            return Response.status(401).entity("Invalid username or password").build();
+        }
+    }
 }

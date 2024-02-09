@@ -38,6 +38,17 @@ public class UserBean {
         users.add(u);
         writeIntoJsonFile();
     }
+    public User verifyUser(String username, String password) {
+        // Check if the user exists
+        User returnUser = null;
+        for (User u : users) {
+            if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
+                returnUser = u;
+            }
+        }
+        return returnUser;
+    }
+
     public ArrayList<User> getUsers() {
         return users;
     }

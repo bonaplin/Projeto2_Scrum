@@ -88,4 +88,7 @@ public class User {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
+    public void getIdUser() {
+        this.idUser = codeUser;
+    }
 }

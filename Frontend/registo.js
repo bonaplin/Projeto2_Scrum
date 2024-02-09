@@ -2,9 +2,14 @@ async function addUser(form) {
   console.log(form);
   //lê a activity do form
   let user = {
-    id: "1",
+    idUser: "",
     username: form.usernameRegister.value,
+    password: form.passwordRegister.value,
     email: form.emailRegister.value,
+    firstName: form.firstNameRegister.value,
+    lastName: form.lastNameRegister.value,
+    telephone: form.phoneRegister.value,
+    photo: form.photoRegister.value,
   };
   console.log(user);
   console.log("deu certo");
@@ -26,7 +31,7 @@ async function addUser(form) {
     if (response.status == 200) {
       //se a atividade foi adicionada corretamente mostra um alerta
       alert("user is added successfully :)");
-
+      console.log(user);
       //adiciona a atividade na tabela com a função do frontend
       window.location.href = "index.html";
       //addActivityToTable(user);
