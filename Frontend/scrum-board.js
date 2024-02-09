@@ -19,6 +19,12 @@ const logout = document.getElementById("logout");
 logout.addEventListener("click", () => {
   window.location.href = "./index.html";
 });
+
+// 
+const editProfile = document.getElementById("editProfile");
+editProfile.addEventListener("click", () => {
+  window.location.href = "./edit-register.html"
+})
 /* ---------------------------- */
 
 /* ---------------------------- */

@@ -314,3 +314,8 @@ form {
   margin: 50px auto;
   padding: 20px;
 }
+
+#usernameRegister2{
+  background-color: #b7b5b0;
+  cursor: default;
+}
