@@ -32,7 +32,6 @@
           class="text-box-register box-design"
           id="emailRegister"
           name="emailRegister"
-          required
         /><br />
         <label for="firstNameRegister">First Name:</label>
         <input
@@ -40,7 +39,6 @@
           class="text-box-register box-design"
           id="firstNameRegister"
           name="firstNameRegister"
-          required
         /><br />
         <label for="lastnameRegister">Last name:</label>
         <input
@@ -48,7 +46,6 @@
           class="text-box-register box-design"
           id="lastnameRegister"
           name="lastnameRegister"
-          required
         /><br />
         <label for="phoneRegister">Telephone:</label>
         <input
@@ -56,7 +53,6 @@
           class="text-box-register box-design"
           id="phoneRegister"
           name="phoneRegister"
-          required
         /><br />
         <label for="photoRegister">Profile Photo URL:</label>
         <input
@@ -65,11 +61,10 @@
           id="photoRegister"
           name="photoRegister"
           placeholder="Enter the URL of your profile photo"
-          required
         /><br />
         <div class="container-btn">
-          <input class="btn" type="reset" />
-          <input class="btn green" type="submit" />
+          <input class="btn" onclick="getAllActivities()" type="reset" />
+          <input class="btn green" onClick="addUser(this.form)" type="submit" />
         </div>
       </form>
     </div>
