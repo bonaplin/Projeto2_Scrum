@@ -77,5 +77,27 @@ public class UserBean {
         }
         return null;
     }
+
+    public User updateUser(User updatedUser) {
+        // Find the user by username
+        User existingUser = getUserByUsername(updatedUser.getUsername());
+
+        if (existingUser != null) {
+            // Update the user information
+            existingUser.setEmail(updatedUser.getEmail());
+            existingUser.setFirstName(updatedUser.getFirstName());
+            existingUser.setLastName(updatedUser.getLastName());
+            existingUser.setTelephone(updatedUser.getTelephone());
+            existingUser.setPhoto(updatedUser.getPhoto());
+
+            // Save the updated user information to the file
+            writeIntoJsonFile();
+
+            return existingUser;
+        } else {
+            // User not found
+            return null;
+        }
+    }
 }
 

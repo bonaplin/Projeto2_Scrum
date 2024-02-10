@@ -23,11 +23,10 @@ login.addEventListener("click", () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "username": username,
+        "password": password,
+
       },
-      body: JSON.stringify({
-        username: username,
-        password: password,
-      }),
     })
       .then((response) => {
         console.log("Received response from server", response);

@@ -43,11 +43,12 @@ public class UserService {
         return userBean.getUsers();
     }
 
-    @Path("/login")
+
     @POST
+    @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response loginUser(User u) {
-        User existingUser = userBean.verifyUser(u.getUsername(), u.getPassword());
+    public Response loginUser(@HeaderParam("username") String username, @HeaderParam("password") String password) {
+        User existingUser = userBean.verifyUser(username, password);
         if (existingUser != null) {
             return Response.status(200).entity("User logged in successfully").build();
         } else {
@@ -69,4 +70,18 @@ public class UserService {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
+    @PUT
+    @Path("/update")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateUser(User updateRequest, @HeaderParam("Authorization") String authorizationHeader) {
+
+        User updatedUser = userBean.updateUser(updateRequest);
+
+        if (updatedUser != null) {
+            return Response.status(200).entity(updatedUser).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
 }
+
