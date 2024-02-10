@@ -12,7 +12,7 @@ submit.addEventListener("click", function (event) {
 });
 
 async function addUser(form) {
-  console.log("entrou na função addUser");
+  console.log("inside addUser function");
   let user = {
     // trim to remove white spaces
     idUser: 0,
