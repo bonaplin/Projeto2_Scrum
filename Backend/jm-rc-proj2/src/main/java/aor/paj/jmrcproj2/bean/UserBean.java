@@ -53,7 +53,6 @@ public class UserBean {
                 if (u.getUsername().equalsIgnoreCase(username) && u.getPassword().equals(password)) {
                     returnUser = u;}
             }
-        }
         return returnUser;
     }
 
@@ -78,26 +77,33 @@ public class UserBean {
         return null;
     }
 
-    public User updateUser(User updatedUser) {
+    public User updateUser(User updatedUser, String username) {
         // Find the user by username
-        User existingUser = getUserByUsername(updatedUser.getUsername());
+        System.out.println("3");
+
+        User existingUser = getUserByUsername(username);
+        System.out.println("4");
 
         if (existingUser != null) {
-            // Update the user information
+            existingUser.setPassword(updatedUser.getPassword());
             existingUser.setEmail(updatedUser.getEmail());
             existingUser.setFirstName(updatedUser.getFirstName());
             existingUser.setLastName(updatedUser.getLastName());
             existingUser.setTelephone(updatedUser.getTelephone());
             existingUser.setPhoto(updatedUser.getPhoto());
+            System.out.println("5");
 
             // Save the updated user information to the file
             writeIntoJsonFile();
 
             return existingUser;
         } else {
+            System.out.println("6");
+
             // User not found
             return null;
         }
     }
+
 }
 

@@ -46,6 +46,9 @@ public class UserService {
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response loginUser(@HeaderParam("username") String username, @HeaderParam("password") String password) {
+        if(username == null || password == null){
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
         User existingUser = userBean.verifyUser(username, password);
         if (existingUser != null) {
             return Response.status(200).entity("User logged in successfully").build();
@@ -71,13 +74,26 @@ public class UserService {
     @PUT
     @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateUser(User updateRequest, @HeaderParam("Authorization") String authorizationHeader) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateUser(User updateRequest, @HeaderParam("username") String username, @HeaderParam("password") String password) {
+        System.out.println("1");
+        if(username == null || password == null){
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+        User loggedUser = userBean.verifyUser(username, password);
+        if (loggedUser == null) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+        System.out.println(loggedUser.getUsername());
 
-        User updatedUser = userBean.updateUser(updateRequest);
+        User updatedUser = userBean.updateUser(updateRequest, username);
+        System.out.println(updatedUser);
 
         if (updatedUser != null) {
+            System.out.println("ok");
             return Response.status(200).entity(updatedUser).build();
         } else {
+            System.out.println("not ok");
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
