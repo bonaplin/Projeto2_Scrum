@@ -34,16 +34,24 @@ public class UserBean {
             users = new ArrayList<User>();
         }
     }
-    public void addUser(User u) {
-        users.add(u);
+    public boolean addUser(User user) {
+        for(User u: users){
+            if(u.getUsername().equals(user.getUsername())){
+                return false;
+            }
+        }
+        users.add(user);
         writeIntoJsonFile();
+        return true;
     }
     public User verifyUser(String username, String password) {
         // Check if the user exists
         User returnUser = null;
         for (User u : users) {
-            if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
-                returnUser = u;
+            // for correct login wiht no 500 error, he try read a null value and fail
+            if (u.getUsername() != null && u.getPassword() != null) {
+                if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
+                    returnUser = u;}
             }
         }
         return returnUser;

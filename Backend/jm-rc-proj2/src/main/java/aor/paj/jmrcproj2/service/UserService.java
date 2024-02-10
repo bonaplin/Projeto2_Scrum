@@ -26,9 +26,14 @@ public class UserService {
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addUser(User u) {
-        userBean.addUser(u);
-        System.out.println("A new user is created");
-        return Response.status(200).entity("A new user is created").build();
+        if(userBean.addUser(u)){
+            System.out.println("A new user is created");
+            return Response.status(201).entity("A new user is created").build();
+        }else {
+            System.out.println("Username already exists");
+            return Response.status(401).entity("Username already exists").build();
+        }
+
 
     }
     @GET
