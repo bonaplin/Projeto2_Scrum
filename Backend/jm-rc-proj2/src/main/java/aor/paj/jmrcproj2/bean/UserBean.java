@@ -61,6 +61,13 @@ public class UserBean {
             throw new RuntimeException(e);
         }
     }
-
+    public User getUserByUsername(String username) {
+        for (User user : users) {
+            if (user.getUsername().equals(username)) {
+                return user;
+            }
+        }
+        return null;
+    }
 }
 

@@ -240,3 +240,7 @@ function eliminateTask(targetCurrentStatus, targetTaskId) {
     tasksDone = tasksDone.filter((task) => task.id !== targetTaskId);
   }
 }
+
+function openEditProfile() {
+    window.location.href = "./edit-register.html";
+}

@@ -37,6 +37,7 @@ public class UserService {
     public List<User> getUsers() {
         return userBean.getUsers();
     }
+
     @Path("/login")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -46,6 +47,21 @@ public class UserService {
             return Response.status(200).entity("User logged in successfully").build();
         } else {
             return Response.status(401).entity("Invalid username or password").build();
+        }
+    }
+
+    @GET
+    @Path("/{username}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUserInfo(@PathParam("username") String username) {
+
+        User user = userBean.getUserByUsername(username);
+
+        if (user != null) {
+
+            return Response.ok(user).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
 }

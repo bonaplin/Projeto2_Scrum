@@ -1,3 +1,7 @@
+function backToHome(){
+    window.location.href = "./scrum-board.html";
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     // vai buscar o username na localstorage
     var storedUsername = localStorage.getItem("username");
@@ -28,9 +32,9 @@ function populateFormEdit(userData) {
     document.getElementById("emailRegister2").value = userData.email || "";
     document.getElementById("passwordRegister2").value = userData.password || "";
     document.getElementById("firstNameRegister2").value = userData.firstName || "";
-    document.getElementById("lastnameRegister2").value = userData.lastname || "";
-    document.getElementById("phoneRegister2").value = userData.phone || "";
-    document.getElementById("photoRegister2").value = userData.profilePhoto || "";
+    document.getElementById("lastnameRegister2").value = userData.lastName || "";
+    document.getElementById("phoneRegister2").value = userData.telephone || "";
+    document.getElementById("photoRegister2").value = userData.photo || "";
 }
 
 async function submit() {
@@ -43,18 +47,19 @@ async function submit() {
     const photoURL = document.getElementById("photoRegister2").value;
 
     try {
+        const base64Credentials = btoa(`${username}:${password}`);
         const response = await fetch(`http://localhost:8080/jm-rc-proj2/rest/user/update`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + base64Credentials,
             },
             body: JSON.stringify({
-                password,
                 email,
                 firstName,
                 lastName,
-                phone,
-                photoURL,
+                telephone,
+                photo,
             }),
         });
 
@@ -65,14 +70,16 @@ async function submit() {
         // aguarda a resposta
         const updatedUserData = await response.json();
 
-        // reedirecciona após um update bem sucedido
-        window.location.href = "./scrum-board.html";
+        updateSuccess();
+
     } catch (error) {
         console.error("Error updating information: ", error);
     }
 }
 
-
-function backToHome(){
+function updateSuccess() {
+    // reedirecciona após um update bem sucedido
     window.location.href = "./scrum-board.html";
 }
+
+

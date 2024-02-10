@@ -57,6 +57,7 @@ public class User {
         this.email = email;
     }
 
+    @XmlElement
     public String getFirstName() {
         return firstName;
     }
@@ -65,6 +66,7 @@ public class User {
         this.firstName = firstName;
     }
 
+    @XmlElement
     public String getLastName() {
         return lastName;
     }
@@ -73,6 +75,7 @@ public class User {
         this.lastName = lastName;
     }
 
+    @XmlElement
     public String getTelephone() {
         return telephone;
     }
@@ -81,6 +84,7 @@ public class User {
         this.telephone = telephone;
     }
 
+    @XmlElement
     public String getPhoto() {
         return photo;
     }
@@ -88,6 +92,8 @@ public class User {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
+
+    @XmlElement
     public void getIdUser() {
         this.idUser = codeUser;
     }
