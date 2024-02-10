@@ -16,7 +16,7 @@
           class="text-box-register box-design"
           id="usernameRegister"
           name="usernameRegister"
-          required
+          placeholder="Enter your username"
         /><br />
         <label for="passwordRegister">Password:</label>
         <input
@@ -24,6 +24,7 @@
           class="text-box-register box-design"
           id="passwordRegister"
           name="passwordRegister"
+          placeholder="Enter your passwor"
         /><br />
         <label for="emailRegister">Email:</label>
         <input
@@ -31,7 +32,7 @@
           class="text-box-register box-design"
           id="emailRegister"
           name="emailRegister"
-          required
+          placeholder="Enter your email"
         /><br />
         <label for="firstNameRegister">First Name:</label>
         <input
@@ -39,7 +40,7 @@
           class="text-box-register box-design"
           id="firstNameRegister"
           name="firstNameRegister"
-          required
+          placeholder="Enter your first name"
         /><br />
         <label for="lastnameRegister">Last name:</label>
         <input
@@ -47,7 +48,7 @@
           class="text-box-register box-design"
           id="lastNameRegister"
           name="lastNameRegister"
-          required
+          placeholder="Enter your last name"
         /><br />
         <label for="phoneRegister">Telephone:</label>
         <input
@@ -55,7 +56,7 @@
           class="text-box-register box-design"
           id="phoneRegister"
           name="phoneRegister"
-          required
+          placeholder="Enter your phone number"
         /><br />
         <label for="photoRegister">Profile Photo URL:</label>
         <input
@@ -66,9 +67,10 @@
           placeholder="Enter the URL of your profile photo"
         /><br />
         <div class="container-btn">
-          <input class="btn" onclick="getAllActivities()" type="reset" />
+          <input class="btn" type="reset" />
           <input class="btn green" id="submit" type="submit" />
         </div>
+        <div id="message" class="container-btn error-info"></div>
       </form>
     </div>
     <script src="./registo.js"></script>

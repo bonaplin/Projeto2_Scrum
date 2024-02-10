@@ -36,7 +36,7 @@ public class UserBean {
     }
     public boolean addUser(User user) {
         for(User u: users){
-            if(u.getUsername().equals(user.getUsername())){
+            if(u.getUsername().equalsIgnoreCase(user.getUsername())){
                 return false;
             }
         }
@@ -50,7 +50,7 @@ public class UserBean {
         for (User u : users) {
             // for correct login wiht no 500 error, he try read a null value and fail
             if (u.getUsername() != null && u.getPassword() != null) {
-                if (u.getUsername().equals(username) && u.getPassword().equals(password)) {
+                if (u.getUsername().equalsIgnoreCase(username) && u.getPassword().equals(password)) {
                     returnUser = u;}
             }
         }
@@ -71,7 +71,7 @@ public class UserBean {
     }
     public User getUserByUsername(String username) {
         for (User user : users) {
-            if (user.getUsername().equals(username)) {
+            if (user.getUsername().equalsIgnoreCase(username)) {
                 return user;
             }
         }
