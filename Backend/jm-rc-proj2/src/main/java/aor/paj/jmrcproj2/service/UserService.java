@@ -31,10 +31,8 @@ public class UserService {
             return Response.status(201).entity("A new user is created").build();
         }else {
             System.out.println("Username already exists");
-            return Response.status(401).entity("Username already exists").build();
+            return Response.status(400).entity("Username already exists").build();
         }
-
-
     }
     @GET
     @Path("/all")

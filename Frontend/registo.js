@@ -1,5 +1,13 @@
+const form = document.getElementById("register-form");
+const submit = document.getElementById("submit");
+submit.addEventListener("click", function (event) {
+  event.preventDefault();
+  console.log("submit btn");
+  addUser(form);
+});
+
 async function addUser(form) {
-  console.log(form);
+  console.log("entrou na função addUser");
   //lê a activity do form
   let user = {
     idUser: "",
@@ -28,16 +36,18 @@ async function addUser(form) {
   }).then(function (response) {
     console.log("response: " + response.status);
     //se o status for 200, a atividade foi adicionada com sucesso
-    if (response.status == 200) {
+    if (response.status == 201) {
       //se a atividade foi adicionada corretamente mostra um alerta
       alert("user is added successfully :)");
       console.log(user);
       //adiciona a atividade na tabela com a função do frontend
       window.location.href = "index.html";
       //addActivityToTable(user);
-    } else {
+    } else if (response.status == 400) {
       //se a atividade não foi adicionada corretamente mostra um alerta
-      alert("something went wrong");
+      alert("Username already exists");
+    } else {
+      alert("Error adding user");
     }
   });
 }
