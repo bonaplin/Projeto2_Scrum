@@ -52,7 +52,7 @@ public class UserBean {
             if (u.getUsername() != null && u.getPassword() != null) {
                 if (u.getUsername().equalsIgnoreCase(username) && u.getPassword().equals(password)) {
                     returnUser = u;}
-            }
+            }}
         return returnUser;
     }
 
