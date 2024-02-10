@@ -1,58 +1,73 @@
+const form = document.getElementById("register-form");
+const submit = document.getElementById("submit");
+const messageElement = document.getElementById("message");
+
+submit.addEventListener("click", function (event) {
+  event.preventDefault();
+  console.log("submit btn");
+  //Verify if the fields are filled
+  if (verifyFields()) {
+    addUser(form);
+  }
+});
+
 async function addUser(form) {
-  console.log(form);
-  //lê a activity do form
+  console.log("inside addUser function");
   let user = {
-    idUser: "",
-    username: form.usernameRegister.value,
-    password: form.passwordRegister.value,
-    email: form.emailRegister.value,
-    firstName: form.firstNameRegister.value,
-    lastName: form.lastNameRegister.value,
-    telephone: form.phoneRegister.value,
-    photo: form.photoRegister.value,
+    // trim to remove white spaces
+    idUser: 0,
+    username: form.usernameRegister.value.trim(),
+    password: form.passwordRegister.value.trim(),
+    email: form.emailRegister.value.trim(),
+    firstName: form.firstNameRegister.value.trim(),
+    lastName: form.lastNameRegister.value.trim(),
+    telephone: form.phoneRegister.value.trim(),
+    photo: form.photoRegister.value.trim(),
   };
   console.log(user);
   console.log("deu certo");
 
-  // faz um post request para o backend
   await fetch("http://localhost:8080/jm-rc-proj2/rest/user/add", {
     method: "POST",
-    headers:
-      //define o tipo de conteudo que vai ser enviado
-      {
-        Accept: "*/*",
-        "Content-Type": "application/json",
-      },
-    //transforma o objeto em json
+    headers: {
+      Accept: "*/*",
+      "Content-Type": "application/json",
+    },
+
     body: JSON.stringify(user),
   }).then(function (response) {
     console.log("response: " + response.status);
-    //se o status for 200, a atividade foi adicionada com sucesso
-    if (response.status == 200) {
-      //se a atividade foi adicionada corretamente mostra um alerta
-      alert("user is added successfully :)");
-      console.log(user);
-      //adiciona a atividade na tabela com a função do frontend
+
+    if (response.status == 201) {
+      messageElement.textContent = "Username created successfully";
+      messageElement.style.color = "green";
       window.location.href = "index.html";
-      //addActivityToTable(user);
+    } else if (response.status == 400) {
+      messageElement.textContent = "Username already exists";
+      messageElement.style.color = "red";
     } else {
-      //se a atividade não foi adicionada corretamente mostra um alerta
-      alert("something went wrong");
+      messageElement.textContent = "Error";
+      messageElement.style.color = "red";
     }
   });
 }
 
-async function getAllActivities() {
-  const response = await fetch(
-    "http://localhost:8080/jm-rc-proj2/rest/user/all",
-    {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-      },
-    }
-  );
-  const data = await response.json();
-  console.log(data);
-  return data;
+function verifyFields() {
+  let temp = false;
+  if (
+    form.usernameRegister.value.trim() == "" ||
+    form.passwordRegister.value.trim() == "" ||
+    form.emailRegister.value.trim() == "" ||
+    form.firstNameRegister.value.trim() == "" ||
+    form.lastNameRegister.value.trim() == "" ||
+    form.phoneRegister.value.trim() == "" ||
+    form.photoRegister.value.trim() == ""
+  ) {
+    temp = false;
+    messageElement.textContent = "Fill all fields";
+    messageElement.style.color = "blue";
+  } else {
+    temp = true;
+  }
+  return temp;
 }
