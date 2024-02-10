@@ -33,6 +33,7 @@ login.addEventListener("click", () => {
         if (response.status === 200) {
           console.log("Login successful");
           localStorage.setItem("username", username);
+          localStorage.setItem("password", password);
           window.location.href = "./scrum-board.html";
         } else {
           throw new Error(`Login failed with status: ${response.status}`);
