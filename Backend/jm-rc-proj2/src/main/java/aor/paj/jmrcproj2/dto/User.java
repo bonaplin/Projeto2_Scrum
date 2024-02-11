@@ -5,16 +5,15 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class User {
-    String username;
-    String password;
-    String email;
-    String firstName;
-    String lastName;
-    String telephone;
-    String photo;
-    int idUser;
-
-    static int codeUser = 1;
+    private String username;
+    private String password;
+    private String email;
+    private String firstName;
+    private String lastName;
+    private String telephone;
+    private String photo;
+    private int idUser;
+    private static int codeUser = 1;
     public User(){
     }
 

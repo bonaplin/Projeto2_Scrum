@@ -18,6 +18,8 @@ const containers = document.querySelectorAll(".coluna");
 const logout = document.getElementById("logout");
 logout.addEventListener("click", () => {
   window.location.href = "./index.html";
+  localStorage.clear();
+  sessionStorage.clear();
 });
 
 // 
