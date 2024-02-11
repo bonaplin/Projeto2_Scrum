@@ -17,11 +17,12 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.Path;
+//@Path("/users")
 @Path("/user")
 public class UserService {
     @Inject
     UserBean userBean;
-
+    //POST /rest/users/register
     @POST
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -35,6 +36,7 @@ public class UserService {
         }
     }
     @GET
+    //@Path("/") <- to get all the users when the path is /rest/users
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public List<User> getUsers() {
@@ -71,6 +73,7 @@ public class UserService {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
+    //POST /rest/users/{username}/
     @PUT
     @Path("/update")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -96,6 +99,11 @@ public class UserService {
             System.out.println("not ok");
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+    }
+    // Method go to the TaskService
+    @Path ("{username}/tasks")
+    public TaskService getTaskService(@PathParam("username") String username) {
+        return new TaskService(username);
     }
 }
 
