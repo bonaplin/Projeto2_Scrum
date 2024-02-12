@@ -57,10 +57,9 @@ h3 {
 }
 /*Dimensões da janela*/
 .w-size {
-  height: 450px;
-  width: 400px;
   margin: 50px auto;
   padding: 20px;
+  width:75vb;
 }
 /*Posicionamento dos elementos*/
 .w-align {
@@ -333,4 +332,8 @@ form {
   border: 2px solid black;
   margin-left: 10px;
   margin-right: 10px;
+}
+
+.row-container{
+  margin-top: 20px;
 }

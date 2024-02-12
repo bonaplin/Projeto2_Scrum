@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>Scrum Board</title>
   </head>
   <body>
@@ -11,8 +11,36 @@
       <div class="title"><h2>Editar Tarefa</h2></div>
       <div class="modal-design margin">
         <label class="left-align"><b>Nome da Tarefa:</b></label>
-        <input type="text" class="text-box box-design" id="taskName" />
+        <input type="text" class="text-box box-design" id="taskName">
+        <div class="row-container">
+          <!-- startDate input -->
+          <label class="left-align margin"><b>Start Date:</b></label>
+          <input type="date" id="startDate" class="date-input">
 
+          <!-- endDate input -->
+          <label class="left-align margin"><b>End Date:</b></label>
+          <input type="date" id="endDate" class="date-input">
+        </div>
+        <!-- Combobox -->
+        <div class="row-container">
+          <label class="left-align margin"><b>State:</b></label>
+          <select id="StateComboBox" class="combobox">
+            <!-- Add options here -->
+            <option value="option1">TO DO</option>
+            <option value="option2">DOING</option>
+            <option value="option3">DONE</option>
+            <!-- Add more options as needed -->
+          </select>
+          <label class="left-align margin"><b>Priority:</b></label>
+          <select id="priorityComboBox" class="combobox">
+            <!-- Add options here -->
+            <option value="option1">High</option>
+            <option value="option2">Medium</option>
+            <option value="option3">Low</option>
+            <!-- Add more options as needed -->
+          </select>
+        </div>
+      </div>
         <label id="editTaskDescription" class="left-align margin"
           ><b>Descrição:</b></label
         >
@@ -30,11 +58,10 @@
             class="btn red"
             id="close-button-color"
           >
-            Cancelar
-          </button>
-        </div>
-        <div class="center-container error-info" id="error-edit"></div>
+          Cancelar
+        </button>
       </div>
+      <div class="center-container error-info" id="error-edit"></div>
     </div>
     <script src="edit-task.js"></script>
   </body>
