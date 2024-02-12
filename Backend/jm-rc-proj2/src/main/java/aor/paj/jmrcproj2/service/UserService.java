@@ -2,6 +2,8 @@ package aor.paj.jmrcproj2.service;
 
 
 import java.util.List;
+
+import aor.paj.jmrcproj2.bean.DataBean;
 import aor.paj.jmrcproj2.bean.UserBean;
 import aor.paj.jmrcproj2.dto.User;
 import jakarta.inject.Inject;
@@ -40,7 +42,7 @@ public class UserService {
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
     public List<User> getUsers() {
-        return userBean.getUsers();
+        return userBean.allUsers();
     }
 
 

@@ -1,13 +1,11 @@
 package aor.paj.jmrcproj2.bean;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+import aor.paj.jmrcproj2.dto.Task;
 import jakarta.enterprise.context.ApplicationScoped;
 import aor.paj.jmrcproj2.dto.User;
 import jakarta.json.bind.Jsonb;
@@ -15,25 +13,23 @@ import jakarta.json.bind.JsonbBuilder;
 import jakarta.json.bind.JsonbConfig;
 
 @ApplicationScoped
-public class UserBean {
+public class UserBean implements Serializable {
 
-    final String filename = "users.json";
+    private DataBean dataBean;
     private ArrayList<User> users;
 
     public UserBean() {
-        File f = new File(filename);
-        if (f.exists()) {
-            try {
-                FileReader filereader = new FileReader(f);
-                users = JsonbBuilder.create().fromJson(filereader, new ArrayList<User>() {
-                }.getClass().getGenericSuperclass());
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        } else {
-            users = new ArrayList<User>();
-        }
+        this.dataBean = new DataBean();
+        this.users = dataBean.getUsers();
     }
+
+    public ArrayList<User> allUsers() {
+        return dataBean.getUsers();
+    }
+    public ArrayList<Task> allTasks() {
+        return dataBean.getTasks();
+    }
+
     public boolean addUser(User user) {
         for(User u: users){
             if(u.getUsername().equalsIgnoreCase(user.getUsername())){
@@ -41,7 +37,8 @@ public class UserBean {
             }
         }
         users.add(user);
-        writeIntoJsonFile();
+        dataBean.getUsers().add(user);
+        dataBean.writeToFile();
         return true;
     }
     public User verifyUser(String username, String password) {
@@ -60,14 +57,6 @@ public class UserBean {
         return users;
     }
 
-    private void writeIntoJsonFile(){
-        Jsonb jsonb =  JsonbBuilder.create(new JsonbConfig().withFormatting(true));
-        try {
-            jsonb.toJson(users, new FileOutputStream(filename));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
     public User getUserByUsername(String username) {
         for (User user : users) {
             if (user.getUsername().equalsIgnoreCase(username)) {
@@ -94,7 +83,7 @@ public class UserBean {
             System.out.println("5");
 
             // Save the updated user information to the file
-            writeIntoJsonFile();
+            dataBean.writeToFile();
 
             return existingUser;
         } else {
