@@ -3,6 +3,8 @@ package aor.paj.jmrcproj2.dto;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
+import java.util.ArrayList;
+
 @XmlRootElement
 public class User {
     private String username;
@@ -14,10 +16,12 @@ public class User {
     private String photo;
     private int idUser;
     private static int codeUser = 1;
+    private ArrayList<Task> tasks;
     public User(){
+        this.tasks = new ArrayList<>();
     }
 
-    public User(String username, String password, String email, String firstName, String lastName, String telephone, String photo) {
+    public User(String username, String password, String email, String firstName, String lastName, String telephone, String photo, ArrayList <Task> tasks) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -26,6 +30,7 @@ public class User {
         this.telephone = telephone;
         this.photo = photo;
         this.idUser = codeUser;
+        this.tasks = tasks;
         codeUser++;
     }
 
@@ -95,5 +100,14 @@ public class User {
     @XmlElement
     public void getIdUser() {
         this.idUser = codeUser;
+    }
+
+    @XmlElement
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(ArrayList<Task> tasks) {
+        this.tasks = tasks;
     }
 }

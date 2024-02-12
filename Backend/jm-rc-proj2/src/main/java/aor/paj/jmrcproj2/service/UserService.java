@@ -3,6 +3,7 @@ package aor.paj.jmrcproj2.service;
 
 import java.util.List;
 import aor.paj.jmrcproj2.bean.UserBean;
+import aor.paj.jmrcproj2.dto.Task;
 import aor.paj.jmrcproj2.dto.User;
 import jakarta.inject.Inject;
 import jakarta.json.Json;
@@ -60,7 +61,7 @@ public class UserService {
             // Build a JSON object containing user information
             JsonObject userJson = Json.createObjectBuilder()
                     .add("message", "User logged in successfully")
-                    .add("photo", existingUser.getPhoto())  // Assuming there is a getPhoto() method in User class
+                    .add("photo", existingUser.getPhoto())
                     .build();
 
             // Return the JSON object in the response
@@ -111,10 +112,20 @@ public class UserService {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
-    // Method go to the TaskService
-    @Path ("{username}/tasks")
-    public TaskService getTaskService(@PathParam("username") String username) {
-        return new TaskService(username);
+
+    @GET
+    @Path("/{username}/tasks")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUserTasks(@PathParam("username") String username) {
+        User user = userBean.getUserByUsername(username);
+
+        if (user != null) {
+            List<Task> tasks = user.getTasks();
+
+            return Response.status(Response.Status.OK).entity(tasks).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
+        }
     }
 }
 
