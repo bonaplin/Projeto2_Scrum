@@ -39,7 +39,10 @@ editProfile.addEventListener("click", () => {
 window.onload = function () {
   if (localStorage.getItem("username")) {
     document.getElementById("nomeAaparecerNoEcra").innerHTML =
-      localStorage.getItem("username");
+      "Welcome " + localStorage.getItem("username");
+  }
+  if(localStorage.getItem("photo")){
+    document.getElementById("profilePhoto").src = localStorage.getItem("photo");
   }
   if (localStorage.getItem("id")) {
     id = localStorage.getItem("id");
