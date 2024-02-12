@@ -19,7 +19,7 @@ login.addEventListener("click", () => {
     console.log("Sending POST request to server");
 
     // POST request to the server ------------------------------------------
-    fetch("http://localhost:8080/jm-rc-proj2/rest/user/login", {
+    fetch("http://localhost:8080/jm-rc-proj2/rest/users/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

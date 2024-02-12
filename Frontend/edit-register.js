@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 async function getUserInfo(username){
     try{
-        const response = await fetch(`http://localhost:8080/jm-rc-proj2/rest/user/${username}`,{
+        const response = await fetch(`http://localhost:8080/jm-rc-proj2/rest/users/${username}`,{
             method: 'GET',
             headers:{
                 'Accept': 'application/json'
@@ -53,7 +53,7 @@ async function save() {
     const phone = document.getElementById("phoneRegister2").value;
     const photo = document.getElementById("photoRegister2").value;
     try {
-        const response = await fetch("http://localhost:8080/jm-rc-proj2/rest/user/update", {
+        const response = await fetch(`http://localhost:8080/jm-rc-proj2/rest/users/${username}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

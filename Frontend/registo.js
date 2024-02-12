@@ -27,7 +27,7 @@ async function addUser(form) {
   console.log(user);
   console.log("deu certo");
 
-  await fetch("http://localhost:8080/jm-rc-proj2/rest/user/add", {
+  await fetch("http://localhost:8080/jm-rc-proj2/rest/users/register", {
     method: "POST",
     headers: {
       Accept: "*/*",

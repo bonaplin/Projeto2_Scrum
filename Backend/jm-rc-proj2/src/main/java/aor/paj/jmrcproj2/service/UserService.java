@@ -20,33 +20,12 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.Path;
-//@Path("/users")
-@Path("/user")
+@Path("/users")
 public class UserService {
     @Inject
     UserBean userBean;
-    //POST /rest/users/register
-    @POST
-    @Path("/add")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response addUser(User u) {
-        if(userBean.addUser(u)){
-            System.out.println("A new user is created");
-            return Response.status(201).entity("A new user is created").build();
-        }else {
-            System.out.println("Username already exists");
-            return Response.status(400).entity("Username already exists").build();
-        }
-    }
-    @GET
-    //@Path("/") <- to get all the users when the path is /rest/users
-    @Path("/all")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<User> getUsers() {
-        return userBean.getUsers();
-    }
 
-
+    //R1
     @POST
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -71,6 +50,28 @@ public class UserService {
         }
     }
 
+    //R3
+    @POST
+    @Path("/register")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addUser(User u) {
+        if(userBean.addUser(u)){
+            System.out.println("A new user is created");
+            return Response.status(201).entity("A new user is created").build();
+        }else {
+            System.out.println("Username already exists");
+            return Response.status(400).entity("Username already exists").build();
+        }
+    }
+
+    //R4
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<User> getUsers() {
+        return userBean.getUsers();
+    }
+
+    //R5
     @GET
     @Path("/{username}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -85,12 +86,29 @@ public class UserService {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
-    //POST /rest/users/{username}/
+
+    //R6
+    @GET
+    @Path("/{username}/tasks")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUserTasks(@PathParam("username") String username) {
+        User user = userBean.getUserByUsername(username);
+
+        if (user != null) {
+            List<Task> tasks = user.getTasks();
+
+            return Response.status(Response.Status.OK).entity(tasks).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
+        }
+    }
+
+    //R7
     @PUT
-    @Path("/update")
+    @Path("/{username}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateUser(User updateRequest, @HeaderParam("username") String username, @HeaderParam("password") String password) {
+    public Response updateUser(@PathParam("username") String usernameP, User updateRequest, @HeaderParam("username") String username, @HeaderParam("password") String password) {
         System.out.println("1");
         if(username == null || password == null){
             return Response.status(Response.Status.UNAUTHORIZED).build();
@@ -113,19 +131,6 @@ public class UserService {
         }
     }
 
-    @GET
-    @Path("/{username}/tasks")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getUserTasks(@PathParam("username") String username) {
-        User user = userBean.getUserByUsername(username);
 
-        if (user != null) {
-            List<Task> tasks = user.getTasks();
-
-            return Response.status(Response.Status.OK).entity(tasks).build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
-        }
-    }
 }
 
