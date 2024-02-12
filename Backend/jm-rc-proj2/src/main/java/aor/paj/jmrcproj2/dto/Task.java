@@ -18,7 +18,8 @@ public class Task {
     public static final int mediumPriority = 200;
     public static final int lowPriority = 300;
 
-
+    public Task() {
+    }
     public Task(String title, String description, LocalDate startDate, LocalDate endDate, int stateId) {
         this.name = title;
         this.description = description;
