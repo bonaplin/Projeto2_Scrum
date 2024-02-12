@@ -5,6 +5,8 @@ import java.util.List;
 import aor.paj.jmrcproj2.bean.UserBean;
 import aor.paj.jmrcproj2.dto.User;
 import jakarta.inject.Inject;
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -49,9 +51,18 @@ public class UserService {
         if(username == null || password == null){
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }
+
         User existingUser = userBean.verifyUser(username, password);
+
         if (existingUser != null) {
-            return Response.status(200).entity("User logged in successfully").build();
+            // Build a JSON object containing user information
+            JsonObject userJson = Json.createObjectBuilder()
+                    .add("message", "User logged in successfully")
+                    .add("photo", existingUser.getPhoto())  // Assuming there is a getPhoto() method in User class
+                    .build();
+
+            // Return the JSON object in the response
+            return Response.status(200).entity(userJson.toString()).build();
         } else {
             return Response.status(401).entity("Invalid username or password").build();
         }

@@ -25,7 +25,6 @@ login.addEventListener("click", () => {
         "Content-Type": "application/json",
         "username": username,
         "password": password,
-
       },
     })
       .then((response) => {
@@ -34,10 +33,17 @@ login.addEventListener("click", () => {
           console.log("Login successful");
           localStorage.setItem("username", username);
           localStorage.setItem("password", password);
-          window.location.href = "./scrum-board.html";
+
+          // retorna se houver um json com o url
+          return response.json();
         } else {
           throw new Error(`Login failed with status: ${response.status}`);
         }
+      })
+      .then((data) => {
+        // Carregar a foto na localstorage
+        localStorage.setItem("photo", data.photo);
+        window.location.href = "./scrum-board.html";
       })
       .catch((error) => {
         console.error("Error:", error);

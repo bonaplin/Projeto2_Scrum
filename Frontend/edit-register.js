@@ -45,20 +45,13 @@ function populateFormEdit(userData) {
 
 async function save() {
     // faz get dos novos valores
-    console.log("ola");
     const username = document.getElementById("usernameRegister2").value;
     const password = document.getElementById("passwordRegister2").value;
     const email = document.getElementById("emailRegister2").value;
     const firstName = document.getElementById("firstNameRegister2").value;
     const lastName = document.getElementById("lastnameRegister2").value;
     const phone = document.getElementById("phoneRegister2").value;
-    const photoURL = document.getElementById("photoRegister2").value;
-    console.log(password);
-    console.log(email);
-    console.log(firstName);
-    console.log(lastName);
-    console.log(phone);
-    console.log(photoURL);
+    const photo = document.getElementById("photoRegister2").value;
     try {
         const response = await fetch("http://localhost:8080/jm-rc-proj2/rest/user/update", {
             method: 'PUT',
@@ -73,7 +66,7 @@ async function save() {
                 firstName: firstName,
                 lastName: lastName,
                 telephone: phone,
-                photo: photoURL,
+                photo: photo,
             }),
         });
 
@@ -86,9 +79,9 @@ async function save() {
 
         // aguarda a resposta
         const updatedUserData = await response.json();
-
+        localStorage.setItem("photo", photo);
         updateSuccess();
-
+        
     } catch (error) {
         console.error("Error updating information: ", error);
     }
