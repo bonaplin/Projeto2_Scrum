@@ -29,11 +29,20 @@ public class UserBean {
                 FileReader filereader = new FileReader(f);
                 users = JsonbBuilder.create().fromJson(filereader, new ArrayList<User>() {
                 }.getClass().getGenericSuperclass());
+                getMaxTaskId();
             } catch (FileNotFoundException e) {
                 throw new RuntimeException(e);
             }
         } else {
             users = new ArrayList<User>();
+        }
+    }
+    private void writeIntoJsonFile(){
+        Jsonb jsonb =  JsonbBuilder.create(new JsonbConfig().withFormatting(true));
+        try {
+            jsonb.toJson(users, new FileOutputStream(filename));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
     public boolean addUser(User user) {
@@ -53,23 +62,22 @@ public class UserBean {
             // for correct login wiht no 500 error, he try read a null value and fail
             if (u.getUsername() != null && u.getPassword() != null) {
                 if (u.getUsername().equalsIgnoreCase(username) && u.getPassword().equals(password)) {
-                    returnUser = u;}
-            }}
+                    returnUser = u;
+            }}}
         return returnUser;
+    }
+
+    public boolean isLoggedUser (String loggedUser, String username){
+        if(loggedUser.equalsIgnoreCase(username)){
+            return true;
+        }
+        return false;
     }
 
     public ArrayList<User> getUsers() {
         return users;
     }
 
-    private void writeIntoJsonFile(){
-        Jsonb jsonb =  JsonbBuilder.create(new JsonbConfig().withFormatting(true));
-        try {
-            jsonb.toJson(users, new FileOutputStream(filename));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
     public User getUserByUsername(String username) {
         for (User user : users) {
             if (user.getUsername().equalsIgnoreCase(username)) {
@@ -131,6 +139,8 @@ public class UserBean {
         User user = getUserByUsername(username);
         if (user != null) {
             ArrayList<Task> tasks = user.getTasks();
+            String newId = "task" + task.increaseCodeTask();
+            task.setTaskId(newId);
             tasks.add(task);
             writeIntoJsonFile();
             return task;
@@ -146,6 +156,40 @@ public class UserBean {
                 if (t.getTaskId().equals(taskId)) {
                     tasks.remove(t);
                     writeIntoJsonFile();
+                    return t;
+                }
+            }
+        }
+        return null;
+    }
+
+    // Search for the maximum task id and set the codeTask to the next number
+    public void getMaxTaskId() {
+        int maxTaskId = 0;
+        for (User user : users) {
+            for (Task task : user.getTasks()) {
+                String taskId = task.getTaskId();
+                if (taskId != null && taskId.startsWith("task")) {
+                    try {
+                        int numericPart = Integer.parseInt(taskId.substring(4)); // remove "task" prefix
+                        if (numericPart > maxTaskId) {
+                            maxTaskId = numericPart;
+                        }
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        Task.setCodeTask(maxTaskId);
+    }
+
+    public Task getTask(String username, String taskId) {
+        User user = getUserByUsername(username);
+        if (user != null) {
+            ArrayList<Task> tasks = user.getTasks();
+            for (Task t : tasks) {
+                if (t.getTaskId().equals(taskId)) {
                     return t;
                 }
             }
