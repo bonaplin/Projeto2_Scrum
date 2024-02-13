@@ -131,7 +131,7 @@ public class UserService {
         }
     }
 
-    //R8 POST /rest/users/{username}/tasks/{taskId}   CHANGE TASK
+    //R8 -
     @POST
     @Path("/{username}/tasks/{taskId}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -151,9 +151,7 @@ public class UserService {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
-    //R9 - Add task to user tasks
-    //POST /rest/users/{username}/tasks
-
+    //R9
     @POST
     @Path("/{username}/tasks")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -174,5 +172,24 @@ public class UserService {
         }
     }
 
+    //R10
+    @DELETE
+    @Path("/{username}/tasks/{taskId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteTask(@PathParam("username") String username, @PathParam("taskId") String taskId, @HeaderParam("username") String usernameH, @HeaderParam("password") String password) {
+        if(usernameH == null || password == null){ //if the user is not have permission
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+        User loggedUser = userBean.verifyUser(usernameH, password);
+        if (loggedUser == null) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+        Task deletedTask = userBean.deleteTask(username, taskId);
+        if (deletedTask != null) {
+            return Response.status(200).entity(deletedTask).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
 }
 

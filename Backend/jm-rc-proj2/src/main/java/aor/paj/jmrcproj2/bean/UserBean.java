@@ -137,5 +137,20 @@ public class UserBean {
         }
         return null;
     }
+
+    public Task deleteTask(String username, String taskId) {
+        User user = getUserByUsername(username);
+        if (user != null) {
+            ArrayList<Task> tasks = user.getTasks();
+            for (Task t : tasks) {
+                if (t.getTaskId().equals(taskId)) {
+                    tasks.remove(t);
+                    writeIntoJsonFile();
+                    return t;
+                }
+            }
+        }
+        return null;
+    }
 }
 
