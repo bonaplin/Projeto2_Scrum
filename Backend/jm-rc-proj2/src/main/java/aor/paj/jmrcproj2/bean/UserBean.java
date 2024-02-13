@@ -60,6 +60,9 @@ public class UserBean {
         User returnUser = null;
         for (User u : users) {
             // for correct login wiht no 500 error, he try read a null value and fail
+            System.out.print("username " + u.getUsername());
+            System.out.print("password " + u.getPassword());
+            System.out.println("task: " + u.getTasks());
             if (u.getUsername() != null && u.getPassword() != null) {
                 if (u.getUsername().equalsIgnoreCase(username) && u.getPassword().equals(password)) {
                     returnUser = u;

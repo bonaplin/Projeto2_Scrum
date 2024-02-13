@@ -23,20 +23,20 @@
         </div>
         <!-- Combobox -->
         <div class="row-container">
-          <label class="left-align margin"><b>State:</b></label>
-          <select id="StateComboBox" class="combobox">
+          <label class="left-align margin"><b>Status:</b></label>
+          <select id="statusComboBox" class="combobox">
             <!-- Add options here -->
-            <option value="option1">TO DO</option>
-            <option value="option2">DOING</option>
-            <option value="option3">DONE</option>
+            <option value="To Do">TO DO</option>
+            <option value="Doing">DOING</option>
+            <option value="Done">DONE</option>
             <!-- Add more options as needed -->
           </select>
           <label class="left-align margin"><b>Priority:</b></label>
-          <select id="priorityComboBox" class="combobox">
+          <select id="stateIdComboBox" class="combobox">
             <!-- Add options here -->
-            <option value="option1">High</option>
-            <option value="option2">Medium</option>
-            <option value="option3">Low</option>
+            <option value="100">High</option>
+            <option value="200">Medium</option>
+            <option value="300">Low</option>
             <!-- Add more options as needed -->
           </select>
         </div>
@@ -49,7 +49,7 @@
           class="text-box box-design description-text"
         ></textarea>
         <div class="container-btn margin">
-          <button class="btn green" onclick="editTask()">Gravar</button>
+          <button class="btn green" onclick="addOrUpdateTask()">Gravar</button>
           <button class="btn" onclick="deleteTask(),backToHome()" id="delete-btn">
             Eliminar
           </button>

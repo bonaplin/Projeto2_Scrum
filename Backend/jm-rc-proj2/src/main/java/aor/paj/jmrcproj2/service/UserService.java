@@ -161,9 +161,10 @@ public class UserService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addTask(@PathParam("username") String username, Task task, @HeaderParam("username") String usernameH, @HeaderParam("password") String password) {
-        if(usernameH == null || password == null){ //if the user is not have permission
+        if(usernameH == null || password == null){
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }
+        System.out.println(task.getStateId());
         User loggedUser = userBean.verifyUser(usernameH, password);
         if (loggedUser == null) {
             return Response.status(Response.Status.FORBIDDEN).build();
