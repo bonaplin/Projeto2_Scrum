@@ -122,22 +122,30 @@ public class TaskService {
     @GET
     @Path("/{taskId}/1")
     public Response getDate(@PathParam("username") String username, @PathParam("taskId") String taskId, @HeaderParam("username") String usernameH, @HeaderParam("password") String password){
+        Response response = checkUserAuthorization(usernameH, password, username);
+        if(response != null) {
+            return response;
+        }
+        String date = userBean.getDate(username, taskId);
+        return processDateResponse(date);
+    }
+
+    private Response checkUserAuthorization(String usernameH, String password, String username) {
         if(usernameH == null || password == null){ //if the user is not have permission
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }
         User loggedUser = userBean.verifyUser(usernameH, password);
-        if (loggedUser == null) {
+        if (loggedUser == null || !userBean.isLoggedUser(usernameH, username)) {
             return Response.status(Response.Status.FORBIDDEN).build();
         }
-        if(userBean.isLoggedUser(usernameH, username)) {
-
-            String date = userBean.getDate(username, taskId);
-            if (date != null) {
-                return Response.status(Response.Status.OK).entity(date).build();
-            } else {
-                return Response.status(Response.Status.NOT_FOUND).entity("Date not found").build();
-            }
-        }
-        return Response.status(Response.Status.FORBIDDEN).build();
+        return null;
     }
+    private Response processDateResponse(String date) {
+        if (date != null) {
+            return Response.status(Response.Status.OK).entity(date).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).entity("Date not found").build();
+        }
+    }
+
 }
