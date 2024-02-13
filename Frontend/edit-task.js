@@ -1,22 +1,45 @@
 /*---------------*/
-//Recupera o valor associado ao id respetivo e converte-o para um objeto JS com o JSON.parse em array
-// se não tiver valor retorna "null" ou "undefined" e a expressão "|| []" faz com que, nesse caso retorne uma array vazia
-let tasks = JSON.parse(localStorage.getItem("tasksToDo")) || [];
-let tasksDoing = JSON.parse(localStorage.getItem("tasksDoing")) || [];
-let tasksDone = JSON.parse(localStorage.getItem("tasksDone")) || [];
-/*---------------*/
+var idAtual = localStorage.getItem("idAtual");
 
-/*---------------*/
-//Função onload da edita-task.js:
-// 1- recupera o nome atual da task
-// 2- recupera a descrição atual da task
-// 3- o campo de texto do nome abre logo com o nome atual
-// 4- o campo de texto da descrição abre logo com a descrição atual
 window.onload = function () {
-  let nameTask = localStorage.getItem("nomeAtual");
-  let descriptionTask = localStorage.getItem("descricaoAtual");
-  document.getElementById("taskName").value = nameTask;
-  document.getElementById("taskDescription").value = descriptionTask;
+  // Caso não seja seleccionada task é porque é para editar uma nova
+  if (idAtual === "-1") {
+    document.getElementById("delete-btn").style.display = "none";
+  }else {
+    const username = localStorage.getItem("username");
+    const password = localStorage.getItem("password");
+
+    // Procura a informação da task
+    fetch(`http://localhost:8080/jm-rc-proj2/rest/users/${username}/tasks/${idAtual}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "username": username,
+        "password": password,
+      },
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error(`Failed to fetch task with status: ${response.status}`);
+        }
+      })
+      .then((task) => {
+        document.getElementById("taskName").value = task.name;
+        document.getElementById("startDate").value = task.startDate;
+        if (task.endDate) {
+          document.getElementById("endDate").value = task.endDate;
+        }
+        document.getElementById("StateComboBox").value = task.state;
+        document.getElementById("priorityComboBox").value = task.priority;
+        document.getElementById("taskDescription").value = task.description;
+        console.log("Retrieved Task:", task);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
 };
 /*---------------*/
 // Verifica se os campos estão preenchidos e retorna um booleano
@@ -31,6 +54,11 @@ function updateValues(task) {
   } else {
     task.name = newName;
     task.description = newDescription;
+    if (!startDateElement.value) {
+      task.startDate = getCurrentDateFormatted();
+    } else {
+      task.startDate = startDateElement.value;
+    }
     return true;
   }
 }
@@ -103,14 +131,22 @@ function deleteTask() {
 /*---------------*/
 //Função para voltar ao scrum-board.html
 function backToHome() {
+  localStorage.setItem("idAtual", -1);
   window.location.href = "./scrum-board.html";
 }
 /*---------------*/
 /*---------------*/
 
-/* Gravar os arrays em localStorage */
-function save() {
-  localStorage.setItem("tasksToDo", JSON.stringify(tasks));
-  localStorage.setItem("tasksDoing", JSON.stringify(tasksDoing));
-  localStorage.setItem("tasksDone", JSON.stringify(tasksDone));
+function getCurrentDateFormatted() {
+  const currentDate = new Date();
+
+  const year = currentDate.getFullYear();
+  let month = currentDate.getMonth() + 1;
+  let day = currentDate.getDate();
+
+  month = month < 10 ? `0${month}` : month;
+  day = day < 10 ? `0${day}` : day;
+
+  const formattedDate = `${year}-${month}-${day}`;
+  return formattedDate;
 }

@@ -6,6 +6,8 @@
 3) containers (seleciona todos os elementos da classe "coluna" que ficam armazeandos nesta classe que se torna numa NodeList
 */
 let id = 1;
+let clickedId = -1;
+localStorage.setItem("idAtual", clickedId);
 let tasks = [];
 let tasksDoing = [];
 let tasksDone = [];
@@ -36,7 +38,9 @@ editProfile.addEventListener("click", () => {
 - o mesmo para o id 
 - o mesmo para cada item onde converte o valor da array em String e chama a função createElements para cada task encontrada
 */
+console.log("a");
 window.onload = function () {
+  console.log("1");
   if (localStorage.getItem("username")) {
     document.getElementById("nomeAaparecerNoEcra").innerHTML =
       "Welcome " + localStorage.getItem("username");
@@ -65,6 +69,9 @@ window.onload = function () {
       createElements(task);
     });
   }
+  console.log("2");
+  updateTasksUI(localStorage.getItem("username"));
+  console.log("3");
 };
 /* ---------------------------- */
 
@@ -248,4 +255,42 @@ function eliminateTask(targetCurrentStatus, targetTaskId) {
 
 function openEditProfile() {
     window.location.href = "./edit-register.html";
+}
+
+function openEditTask() {
+  window.location.href ="./edit-task.html";
+}
+
+
+async function updateTasksUI(username) {
+  const tasks = await fetchTasks(username);
+  if (tasks) {
+    clearTaskColumns();
+    createTaskElements(tasks);
+  }
+}
+
+async function fetchTasks(username) {
+  try {
+    const response = await fetch(`http://localhost:8080/jm-rc-proj2/rest/users/${username}/tasks`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch tasks: ${response.statusText}`);
+    }
+    const tasks = await response.json();
+    return tasks;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function clearTaskColumns() {
+  containers.forEach((container) => {
+    container.innerHTML = '';
+  });
+}
+
+function createTaskElements(tasks) {
+  tasks.forEach((task) => {
+    createElements(task);
+  });
 }
