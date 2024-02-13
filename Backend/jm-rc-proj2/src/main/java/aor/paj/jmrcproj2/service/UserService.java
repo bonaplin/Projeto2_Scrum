@@ -144,11 +144,15 @@ public class UserService {
         if (loggedUser == null) {
             return Response.status(Response.Status.FORBIDDEN).build();
         }
+        if(userBean.isLoggedUser(usernameH, username)) {
         Task updatedTask = userBean.updateTask(username, taskId, task);
-        if (updatedTask != null) {
-            return Response.status(200).entity(updatedTask).build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            if (updatedTask != null) {
+                return Response.status(200).entity(updatedTask).build();
+            } else {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+        }else{
+            return Response.status(Response.Status.FORBIDDEN).build();
         }
     }
     //R9
@@ -164,11 +168,15 @@ public class UserService {
         if (loggedUser == null) {
             return Response.status(Response.Status.FORBIDDEN).build();
         }
-        Task newTask = userBean.addTask(username, task);
-        if (newTask != null) {
-            return Response.status(201).entity(newTask).build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
+        if(userBean.isLoggedUser(usernameH, username)) {
+            Task newTask = userBean.addTask(username, task);
+            if (newTask != null) {
+                return Response.status(201).entity(newTask).build();
+            } else {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+        }else{
+            return Response.status(Response.Status.FORBIDDEN).build();
         }
     }
 
@@ -184,12 +192,40 @@ public class UserService {
         if (loggedUser == null) {
             return Response.status(Response.Status.FORBIDDEN).build();
         }
-        Task deletedTask = userBean.deleteTask(username, taskId);
-        if (deletedTask != null) {
-            return Response.status(200).entity(deletedTask).build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
+        if(userBean.isLoggedUser(usernameH, username)) {
+            Task deletedTask = userBean.deleteTask(username, taskId);
+            if (deletedTask != null) {
+                return Response.status(200).entity(deletedTask).build();
+            } else {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+        }else{
+            return Response.status(Response.Status.FORBIDDEN).build();
         }
     }
+    // R11 OPCIONAL
+    @GET
+    @Path("/{username}/tasks/{taskId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getTask(@PathParam("username") String username, @PathParam("taskId") String taskId, @HeaderParam("username") String usernameH, @HeaderParam("password") String password){
+        if(usernameH == null || password == null){ //if the user is not have permission
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+        User loggedUser = userBean.verifyUser(usernameH, password);
+        if (loggedUser == null) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+        if(userBean.isLoggedUser(usernameH, username)) {
+            Task task = userBean.getTask(username, taskId);
+            if (task != null) {
+                return Response.status(Response.Status.OK).entity(task).build();
+            } else {
+                return Response.status(Response.Status.NOT_FOUND).entity("Task not found").build();
+            }
+        }
+        return Response.status(Response.Status.FORBIDDEN).build();
+    }
+
+
 }
 

@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 @XmlRootElement
 public class Task {
+    public static int codeTask = 1;
     private String name;
     private String description;
     private LocalDate startDate;
@@ -29,7 +30,6 @@ public class Task {
         this.endDate = endDate;
         this.stateId = stateId;
         this.status = status;
-        this.taskId = taskId;
     }
 
     @XmlElement
@@ -89,5 +89,13 @@ public class Task {
 
     public void setTaskId(String taskId) {
         this.taskId = taskId;
+    }
+
+    public int increaseCodeTask(){
+        codeTask++;
+        return codeTask;
+    }
+    public static void setCodeTask(int codeTask) {
+        Task.codeTask = codeTask;
     }
 }
