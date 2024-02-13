@@ -6,8 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.lang.reflect.Array;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
+import aor.paj.jmrcproj2.dto.Task;
 import jakarta.enterprise.context.ApplicationScoped;
 import aor.paj.jmrcproj2.dto.User;
 import jakarta.json.bind.Jsonb;
@@ -105,5 +107,35 @@ public class UserBean {
         }
     }
 
+    public Task updateTask(String username, String taskId, Task task) {
+        User user = getUserByUsername(username);
+        if (user != null) {
+            ArrayList<Task> tasks = user.getTasks();
+            for (Task t : tasks) {
+                if (t.getTaskId().equals(taskId)) {
+                    t.setName(task.getName());
+                    t.setDescription(task.getDescription());
+                    t.setStartDate(task.getStartDate());
+                    t.setEndDate(task.getEndDate());
+                    t.setStatus(task.getStatus());
+                    t.setStateId(task.getStateId());
+                    writeIntoJsonFile();
+                    return t;
+                }
+            }
+        }
+        return null;
+    }
+
+    public Task addTask(String username, Task task) {
+        User user = getUserByUsername(username);
+        if (user != null) {
+            ArrayList<Task> tasks = user.getTasks();
+            tasks.add(task);
+            writeIntoJsonFile();
+            return task;
+        }
+        return null;
+    }
 }
 

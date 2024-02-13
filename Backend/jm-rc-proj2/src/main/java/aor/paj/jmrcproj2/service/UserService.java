@@ -131,6 +131,48 @@ public class UserService {
         }
     }
 
+    //R8 POST /rest/users/{username}/tasks/{taskId}   CHANGE TASK
+    @POST
+    @Path("/{username}/tasks/{taskId}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateTask(@PathParam("username") String username,@PathParam("taskId") String taskId, Task task, @HeaderParam("username") String usernameH, @HeaderParam("password") String password) {
+        if(usernameH == null || password == null){ //if the user is not have permission
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+        User loggedUser = userBean.verifyUser(usernameH, password);
+        if (loggedUser == null) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+        Task updatedTask = userBean.updateTask(username, taskId, task);
+        if (updatedTask != null) {
+            return Response.status(200).entity(updatedTask).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+    //R9 - Add task to user tasks
+    //POST /rest/users/{username}/tasks
+
+    @POST
+    @Path("/{username}/tasks")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addTask(@PathParam("username") String username, Task task, @HeaderParam("username") String usernameH, @HeaderParam("password") String password) {
+        if(usernameH == null || password == null){ //if the user is not have permission
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+        User loggedUser = userBean.verifyUser(usernameH, password);
+        if (loggedUser == null) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+        Task newTask = userBean.addTask(username, task);
+        if (newTask != null) {
+            return Response.status(201).entity(newTask).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
 
 }
 

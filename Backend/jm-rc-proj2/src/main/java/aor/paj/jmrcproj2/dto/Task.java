@@ -12,6 +12,8 @@ public class Task {
     private LocalDate startDate;
     private LocalDate endDate;
     private int stateId;
+    private String status;
+    private String taskId;
 
     // Constants for priority levels
     public static final int highPriority = 100;
@@ -20,12 +22,14 @@ public class Task {
 
     public Task() {
     }
-    public Task(String title, String description, LocalDate startDate, LocalDate endDate, int stateId) {
-        this.name = title;
+   public Task(String name, String description, LocalDate startDate, LocalDate endDate, int stateId, String status, String taskId) {
+        this.name = name;
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
         this.stateId = stateId;
+        this.status = status;
+        this.taskId = taskId;
     }
 
     @XmlElement
@@ -68,5 +72,22 @@ public class Task {
 
     public void setStateId(int stateId) {
         this.stateId = stateId;
+    }
+    @XmlElement
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    @XmlElement
+    public String getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(String taskId) {
+        this.taskId = taskId;
     }
 }
