@@ -7,7 +7,10 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.lang.reflect.Array;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 import aor.paj.jmrcproj2.dto.Task;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -141,6 +144,14 @@ public class UserBean {
             ArrayList<Task> tasks = user.getTasks();
             String newId = "task" + task.increaseCodeTask();
             task.setTaskId(newId);
+            if (task.getStartDate() != null) {
+                String jsStartDate = convertLocalDateToJsDate(task.getStartDate());
+                task.setStartDate(LocalDate.parse(jsStartDate.split("T")[0]));
+            }
+            if(task.getEndDate() != null) {
+                String jsEndDate = convertLocalDateToJsDate(task.getEndDate());
+                task.setEndDate(LocalDate.parse(jsEndDate.split("T")[0]));
+            }
             tasks.add(task);
             writeIntoJsonFile();
             return task;
@@ -196,5 +207,34 @@ public class UserBean {
         }
         return null;
     }
+
+    public ArrayList<Task> sortTasks(ArrayList<Task> tasks){
+        tasks.sort(Comparator.comparing(Task::getStateId)
+                .thenComparing(Task::getStartDate)
+                .thenComparing(Comparator.comparing(Task::getEndDate, Comparator.nullsLast(Comparator.naturalOrder()))));
+        return tasks;
+    }
+
+    public static String convertLocalDateToJsDate(LocalDate localDate) {
+        // Convert the LocalDate object to a string in the format "YYYY-MM-DD"
+        String dateString = localDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        // Append "T00:00:00.000Z" to the date string to create a JavaScript-compatible date string
+        return dateString + "T00:00:00.000Z";
+    }
+//METHOD FOR TESTING ---------------------------------------------------------------------------------------------------
+    public String getDate(String username, String taskId) {
+        User user = getUserByUsername(username);
+        if (user != null) {
+            ArrayList<Task> tasks = user.getTasks();
+            for (Task t : tasks) {
+                if (t.getTaskId().equals(taskId)) {
+                    return convertLocalDateToJsDate(t.getStartDate());
+                }
+            }
+        }
+        return null;
+    }
+//METHOD FOR TESTING ---------------------------------------------------------------------------------------------------
+
 }
 

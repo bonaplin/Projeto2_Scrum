@@ -1,6 +1,7 @@
 package aor.paj.jmrcproj2.service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import aor.paj.jmrcproj2.bean.UserBean;
 import aor.paj.jmrcproj2.dto.Task;
@@ -97,6 +98,7 @@ public class UserService {
         if (user != null) {
             List<Task> tasks = user.getTasks();
 
+            userBean.sortTasks((ArrayList<Task>) tasks);
             return Response.status(Response.Status.OK).entity(tasks).build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
@@ -225,6 +227,30 @@ public class UserService {
         }
         return Response.status(Response.Status.FORBIDDEN).build();
     }
+//METHOD FOR TESTING ---------------------------------------------------------------------------------------------------
+    @GET
+    @Path("/{username}/tasks/{taskId}/1")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response getDate(@PathParam("username") String username, @PathParam("taskId") String taskId, @HeaderParam("username") String usernameH, @HeaderParam("password") String password){
+        if(usernameH == null || password == null){ //if the user is not have permission
+            return Response.status(Response.Status.UNAUTHORIZED).build();
+        }
+        User loggedUser = userBean.verifyUser(usernameH, password);
+        if (loggedUser == null) {
+            return Response.status(Response.Status.FORBIDDEN).build();
+        }
+        if(userBean.isLoggedUser(usernameH, username)) {
+
+            String date = userBean.getDate(username, taskId);
+            if (date != null) {
+                return Response.status(Response.Status.OK).entity(date).build();
+            } else {
+                return Response.status(Response.Status.NOT_FOUND).entity("Date not found").build();
+            }
+        }
+        return Response.status(Response.Status.FORBIDDEN).build();
+    }
+//METHOD FOR TESTING ---------------------------------------------------------------------------------------------------
 
 
 }
