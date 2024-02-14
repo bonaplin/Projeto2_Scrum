@@ -23,12 +23,16 @@ public class Task {
 
     public Task() {
     }
-   public Task(String name, String description, LocalDate startDate, LocalDate endDate, int stateId, String status, String taskId) {
+   public Task(String name, String description, String startDate, String endDate, String stateId, String status) {
         this.name = name;
         this.description = description;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.stateId = stateId;
+        this.startDate = LocalDate.parse(startDate);
+        if (endDate != null) {
+           this.endDate = LocalDate.parse(endDate);
+        } else {
+           this.endDate = null;
+        }
+        this.stateId = convertPriorityStringToInt(stateId);
         this.status = status;
     }
 
@@ -97,5 +101,29 @@ public class Task {
     }
     public static void setCodeTask(int codeTask) {
         Task.codeTask = codeTask;
+    }
+    @Override
+    public String toString() {
+        return "Task{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", stateId=" + stateId +
+                ", status=" + status +
+                ", taskId" + taskId +
+                '}';
+    }
+    public static int convertPriorityStringToInt(String priorityString) {
+        switch (priorityString) {
+            case "100":
+                return highPriority;
+            case "200":
+                return mediumPriority;
+            case "300":
+                return lowPriority;
+            default:
+                throw new IllegalArgumentException("Unknown priority string: " + priorityString);
+        }
     }
 }
