@@ -9,6 +9,7 @@ let password = localStorage.getItem("password");
 window.onload = async function () {
   if (!idAtual || idAtual === "-1") {
     document.getElementById("delete-btn").disabled = true;
+    document.getElementById("save-btn").innerText = "Add";
   } else {
     const username = localStorage.getItem("username");
     const password = localStorage.getItem("password");
@@ -137,8 +138,9 @@ async function addOrUpdateTask() {
       console.error("Error:", error);
     }
   } else {
-    // Update task
-    updateTask(username, password, idAtual, task);
+    
+    await updateTask(username, password, idAtual, task);
+    backToHome();
   }
 }
 
@@ -146,7 +148,7 @@ async function addOrUpdateTask() {
 
 async function updateTask(username, password, taskId, task) {
   await fetch(`http://localhost:8080/jm-rc-proj2/rest/users/${username}/tasks/${taskId}`, {
-    method: "POST", // or "PUT" depending on your backend API
+    method: "POST", 
     headers: {
       "Content-Type": "application/json",
       "username": username,
@@ -157,7 +159,7 @@ async function updateTask(username, password, taskId, task) {
     .then((response) => {
       if (response.status === 200) {
         console.log("Task updated successfully");
-        // Handle success, if needed
+        
         return response.json();
       } else {
         throw new Error(`Failed to update task with status: ${response.status}`);
@@ -166,6 +168,37 @@ async function updateTask(username, password, taskId, task) {
     .catch((error) => {
       console.error("Error:", error);
     });
+}
+
+async function deleteTask (){
+  let username = localStorage.getItem("username");
+  let password = localStorage.getItem("password");
+  let taskId = localStorage.getItem("idAtual");
+  try {
+  const response = await fetch(`http://localhost:8080/jm-rc-proj2/rest/users/${username}/tasks/${taskId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "username": username,
+      "password": password,
+    },
+  });
+
+  if (response.status === 200) {
+    console.log("Task deleted successfully");
+    backToHome();
+  } else if (response.status === 404) {
+    console.log("Task not found");
+  } else if (response.status === 403) {
+    console.log("Forbidden");
+  } else {
+    console.error(`Failed to delete task: ${taskId}`);
+  }
+} catch (error) {
+  console.error("Error:", error);
+  // Handle network errors or other exceptions
+}
+
 }
 
 

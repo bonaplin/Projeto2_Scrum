@@ -155,13 +155,8 @@ function createElements(task) {
   //Cada elemento criado terá um evento de "click"
   newTaskElement.addEventListener("click", (e) => {
     let clickedId = e.target.id; //obtém o id da task clicada
-    let clickedName = e.target.textContent; //obtém o nome da task clicada
-    let clickedDescription = e.target.description; //obtém a descrição da task clicada
     //alert(clickedId);
     localStorage.setItem("idAtual", clickedId); //guarda no localStorage o id dessa task como o atual para usar na edição da mesma
-    localStorage.setItem("nomeAtual", clickedName); //guarda no localStorage o nome dessa task como o atual para usar na edição da mesma
-    localStorage.setItem("descricaoAtual", clickedDescription); //guarda no localStorage a descrição dessa task como o atual para usar na edição da mesma
-
     window.location.href = "./edit-task.html"; //e ao ser carregada abre a página html "edit-task.html"
   });
   column.appendChild(newTaskElement); //por fim adiciona o elemento à coluna respetiva dessa task
