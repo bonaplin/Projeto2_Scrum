@@ -5,12 +5,8 @@
 2) 3 arrays: lista do TO DO, lista do DOING e lista do DONE
 3) containers (seleciona todos os elementos da classe "coluna" que ficam armazeandos nesta classe que se torna numa NodeList
 */
-let id = 1;
 let clickedId = -1;
 localStorage.setItem("idAtual", clickedId);
-let tasks = [];
-let tasksDoing = [];
-let tasksDone = [];
 const containers = document.querySelectorAll(".coluna");
 /* ---------------------------- */
 
@@ -47,27 +43,6 @@ window.onload = function () {
   }
   if(localStorage.getItem("photo")){
     document.getElementById("profilePhoto").src = localStorage.getItem("photo");
-  }
-  if (localStorage.getItem("id")) {
-    id = localStorage.getItem("id");
-  }
-  if (localStorage.getItem("tasksToDo")) {
-    tasks = JSON.parse(localStorage.getItem("tasksToDo"));
-    tasks.forEach((task) => {
-      createElements(task);
-    });
-  }
-  if (localStorage.getItem("tasksDoing")) {
-    tasksDoing = JSON.parse(localStorage.getItem("tasksDoing"));
-    tasksDoing.forEach((task) => {
-      createElements(task);
-    });
-  }
-  if (localStorage.getItem("tasksDoing")) {
-    tasksDone = JSON.parse(localStorage.getItem("tasksDone"));
-    tasksDone.forEach((task) => {
-      createElements(task);
-    });
   }
   console.log("2");
   updateTasksUI(localStorage.getItem("username"));
@@ -150,13 +125,23 @@ function Task(name, description) {
 function createElements(task) {
   // Encontra a coluna à qual pertence a task
   var column = document.getElementById(task.status);
+  console.log(task.status);
+  console.log(task.taskId);
   // Cria um elemento para a mesma com classe, texto, id, descrição e permite que seja arrastado
   var newTaskElement = document.createElement("div");
   newTaskElement.className = "task";
   newTaskElement.textContent = task.name;
-  newTaskElement.id = task.id;
-  newTaskElement.description = task.description;
+  newTaskElement.id = task.taskId;
   newTaskElement.draggable = true;
+
+  const stateIdColors = {
+    100: "#CD6155",      // high priority
+    200: "#E59866",   // medium priority
+    300: "#7DCEA0"     // low priority
+  };
+
+  // cor por prioridades
+  newTaskElement.style.backgroundColor = stateIdColors[task.stateId];
 
   // Adiciona a classe dragging quando a tarefa é 'agarra' e remove quando é 'largada'
   // dragging é uma classe que dá um efeito visual à tarefa quando é arrastada
@@ -277,6 +262,7 @@ async function fetchTasks(username) {
       throw new Error(`Failed to fetch tasks: ${response.statusText}`);
     }
     const tasks = await response.json();
+    console.log(tasks);
     return tasks;
   } catch (error) {
     console.error(error);
