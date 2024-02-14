@@ -20,11 +20,11 @@ logout.addEventListener("click", () => {
   sessionStorage.clear();
 });
 
-// 
+//
 const editProfile = document.getElementById("editProfile");
 editProfile.addEventListener("click", () => {
-  window.location.href = "./edit-register.html"
-})
+  window.location.href = "./edit-register.html";
+});
 /* ---------------------------- */
 
 /* ---------------------------- */
@@ -41,7 +41,7 @@ window.onload = function () {
     document.getElementById("nomeAaparecerNoEcra").innerHTML =
       "Welcome " + localStorage.getItem("username");
   }
-  if(localStorage.getItem("photo")){
+  if (localStorage.getItem("photo")) {
     document.getElementById("profilePhoto").src = localStorage.getItem("photo");
   }
   console.log("2");
@@ -135,9 +135,9 @@ function createElements(task) {
   newTaskElement.draggable = true;
 
   const stateIdColors = {
-    100: "#CD6155",      // high priority
-    200: "#E59866",   // medium priority
-    300: "#7DCEA0"     // low priority
+    100: "#CD6155", // high priority
+    200: "#E59866", // medium priority
+    300: "#7DCEA0", // low priority
   };
 
   // cor por prioridades
@@ -172,34 +172,103 @@ containers.forEach((container) => {
   container.addEventListener("dragover", (e) => {
     e.preventDefault(); // Previne o comportamento padrão do evento "dragover"
   });
-  container.addEventListener("drop", (e) => {
+  container.addEventListener("drop", async (e) => {
     e.preventDefault(); // Previne o comportamento padrão do evento "drop"
     const draggable = document.querySelector(".dragging"); // A tarefa que queremos soltar
     container.appendChild(draggable); // Solta a tarefa na coluna
     let targetTaskId = draggable.id; // Obtém o id da tarefa que estamos a arrastar
-    let targetTask = verify(targetTaskId); // Verifica se a tarefa existe
-    if (targetTask) {
-      // Se a tarefa existe
-      let targetCurrentStatus = targetTask.status; // Remove a tarefa do array com base no status atual
-      eliminateTask(targetCurrentStatus, targetTaskId); // Atualiza o status da tarefa com base no id do container
-      addTaskToArray(container, targetTask);
-    }
-    // Salva os arrays atualizados no armazenamento local
-    save();
+    console.log(targetTaskId);
+
+    const usernameLogged = localStorage.getItem("username");
+    const passwordLogged = localStorage.getItem("password");
+
+    //receber a task do be
+    const taskToUpdate = await getTask(
+      usernameLogged,
+      passwordLogged,
+      targetTaskId
+    );
+    console.log(taskToUpdate + "<- taskToUpdate");
+    taskToUpdate.status = container.id; //atualizar o status da task
+    //atualizar a task
+    await updateTask(
+      usernameLogged,
+      passwordLogged,
+      targetTaskId,
+      taskToUpdate
+    );
+    //fazer update
+    updateTasksUI(usernameLogged); //atualizar a UI
   });
 });
+
+async function updateTask(username, password, taskId, task) {
+  await fetch(
+    `http://localhost:8080/jm-rc-proj2/rest/users/${username}/tasks/${taskId}`,
+    {
+      method: "POST", // or "PUT" depending on your backend API
+      headers: {
+        "Content-Type": "application/json",
+        username: username,
+        password: password,
+      },
+      body: JSON.stringify(task),
+    }
+  )
+    .then((response) => {
+      if (response.status === 200) {
+        console.log("Task updated successfully");
+        // Handle success, if needed
+        return response.json();
+      } else {
+        throw new Error(
+          `Failed to update task with status: ${response.status}`
+        );
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+async function getTask(username, password, taskId) {
+  try {
+    const response = await fetch(
+      `http://localhost:8080/jm-rc-proj2/rest/users/${username}/tasks/${taskId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          username: username,
+          password: password,
+        },
+      }
+    );
+
+    if (response.status === 200) {
+      console.log("Task fetched successfully");
+      const data = await response.json();
+      console.log("Task data:", data);
+      return data;
+    } else {
+      throw new Error(`Failed to fetch task with status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+
 // Adiciona a tarefa ao array correto com base no id do container
 function addTaskToArray(container, targetTask) {
-  if (container.id === "ToDo") {
-    targetTask.status = "ToDo"; // Define o status da tarefa como "ToDo"
+  if (container.id === "To Do") {
+    targetTask.status = "To Do"; // Define o status da tarefa como "ToDo"
     tasks.push(targetTask); // Adiciona a tarefa ao array de ToDo
     save(); // Salva as alterações
-  } else if (container.id === "doing") {
-    targetTask.status = "doing"; // Define o status da tarefa como "doing"
+  } else if (container.id === "Doing") {
+    targetTask.status = "Doing"; // Define o status da tarefa como "doing"
     tasksDoing.push(targetTask); // Adiciona a tarefa ao array doing
     save(); // Salva as alterações
-  } else if (container.id === "done") {
-    targetTask.status = "done"; // Define o status da tarefa como "done"
+  } else if (container.id === "Done") {
+    targetTask.status = "Done"; // Define o status da tarefa como "done"
     tasksDone.push(targetTask); // Adiciona a tarefa ao array done
     save(); // Salva as alterações
   }
@@ -207,12 +276,17 @@ function addTaskToArray(container, targetTask) {
 
 // Verifica se a tarefa existe nos arrays
 function verify(targetTaskId) {
+  let tasks = fetchTasks(localStorage.getItem("username"));
+  console.log("tasks: " + tasks);
   // Procura a tarefa indicada nos 3 arrays
-  let targetTask =
-    tasks.find((task) => task.id === targetTaskId) ||
-    tasksDoing.find((task) => task.id === targetTaskId) ||
-    tasksDone.find((task) => task.id === targetTaskId);
+  let targetTask = tasks.find((task) => task.taskId === targetTaskId);
   return targetTask; // Retorna a tarefa encontrada
+}
+
+function findTaskById(id) {
+  let tasks = fetchTasks(localStorage.getItem("username"));
+  console.log("tasks: " + tasks);
+  return tasks.find((task) => task.taskId === id);
 }
 
 //Função para voltar para o scrum-board.html
@@ -239,13 +313,12 @@ function eliminateTask(targetCurrentStatus, targetTaskId) {
 }
 
 function openEditProfile() {
-    window.location.href = "./edit-register.html";
+  window.location.href = "./edit-register.html";
 }
 
 function openEditTask() {
-  window.location.href ="./edit-task.html";
+  window.location.href = "./edit-task.html";
 }
-
 
 async function updateTasksUI(username) {
   const tasks = await fetchTasks(username);
@@ -257,7 +330,9 @@ async function updateTasksUI(username) {
 
 async function fetchTasks(username) {
   try {
-    const response = await fetch(`http://localhost:8080/jm-rc-proj2/rest/users/${username}/tasks`);
+    const response = await fetch(
+      `http://localhost:8080/jm-rc-proj2/rest/users/${username}/tasks`
+    );
     if (!response.ok) {
       throw new Error(`Failed to fetch tasks: ${response.statusText}`);
     }
@@ -271,7 +346,7 @@ async function fetchTasks(username) {
 
 function clearTaskColumns() {
   containers.forEach((container) => {
-    container.innerHTML = '';
+    container.innerHTML = "";
   });
 }
 
