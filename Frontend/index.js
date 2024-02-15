@@ -1,4 +1,8 @@
 console.log("Script loaded");
+window.onload = function () {
+  localStorage.clear();
+  sessionStorage.clear();
+}
 
 const login = document.getElementById("login");
 console.log("Login button:", login);

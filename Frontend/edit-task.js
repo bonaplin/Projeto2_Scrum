@@ -7,6 +7,10 @@ let username = localStorage.getItem("username");
 let password = localStorage.getItem("password");
 
 window.onload = async function () {
+  if (!localStorage.getItem("username") || !localStorage.getItem("password")) {
+  // redireccionar, caso não haja username ou password na localstorage
+  window.location.href = "login.html";
+  }
   if (!idAtual || idAtual === "-1") {
     document.getElementById("delete-btn").disabled = true;
     document.getElementById("save-btn").innerText = "Add";

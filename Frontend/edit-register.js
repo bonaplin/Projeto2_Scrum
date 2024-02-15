@@ -5,6 +5,13 @@ function backToHome(){
     window.location.href = "./scrum-board.html";
 }
 
+window.onload = async function () {
+    if (!localStorage.getItem("username") || !localStorage.getItem("password")) {
+        // redireccionar, caso não haja username ou password na localstorage
+        window.location.href = "login.html";
+    }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     // vai buscar o username na localstorage
     getUserInfo(storedUsername);

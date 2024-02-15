@@ -23,7 +23,7 @@ logout.addEventListener("click", () => {
 // 
 const editProfile = document.getElementById("editProfile");
 editProfile.addEventListener("click", () => {
-  window.location.href = "./edit-register.html"
+  window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/index.html"
 })
 /* ---------------------------- */
 
@@ -36,6 +36,10 @@ editProfile.addEventListener("click", () => {
 */
 console.log("a");
 window.onload = function () {
+  if (!localStorage.getItem("username") || !localStorage.getItem("password")) {
+  // redireccionar, caso não haja username ou password na localstorage
+  window.location.href = "login.html";
+  }
   console.log("1");
   if (localStorage.getItem("username")) {
     document.getElementById("nomeAaparecerNoEcra").innerHTML =

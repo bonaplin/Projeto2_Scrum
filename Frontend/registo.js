@@ -2,6 +2,13 @@ const form = document.getElementById("register-form");
 const submit = document.getElementById("submit");
 const messageElement = document.getElementById("message");
 
+window.onload = function () {
+  if (!localStorage.getItem("username") || !localStorage.getItem("password")) {
+  // redireccionar, caso não haja username ou password na localstorage
+  window.location.href = "login.html";
+  }
+}
+
 submit.addEventListener("click", function (event) {
   event.preventDefault();
   console.log("submit btn");
