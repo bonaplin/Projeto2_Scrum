@@ -47,7 +47,7 @@ login.addEventListener("click", () => {
       .then((data) => {
         // Carregar a foto na localstorage
         localStorage.setItem("photo", data.photo);
-        window.location.href = "./scrum-board.html";
+        window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/scrum-board.html";
       })
       .catch((error) => {
         console.error("Error:", error);

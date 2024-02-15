@@ -2,13 +2,14 @@ var storedUsername = localStorage.getItem("username");
 var storedPassword = localStorage.getItem("password");
 
 function backToHome(){
-    window.location.href = "./scrum-board.html";
+    window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/scrum-board.html";
 }
 
 window.onload = async function () {
+    console.log("nvdsnoipb");
     if (!localStorage.getItem("username") || !localStorage.getItem("password")) {
         // redireccionar, caso não haja username ou password na localstorage
-        window.location.href = "login.html";
+        window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/index.html";
     }
 }
 
@@ -96,7 +97,7 @@ async function save() {
 
 function updateSuccess() {
     // reedirecciona após um update bem sucedido
-    window.location.href = "./scrum-board.html";
+    window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/scrum-board.html";
 }
 
 

@@ -9,7 +9,7 @@ let password = localStorage.getItem("password");
 window.onload = async function () {
   if (!localStorage.getItem("username") || !localStorage.getItem("password")) {
   // redireccionar, caso não haja username ou password na localstorage
-  window.location.href = "login.html";
+  window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/index.html";
   }
   if (!idAtual || idAtual === "-1") {
     document.getElementById("delete-btn").disabled = true;
@@ -53,7 +53,7 @@ window.onload = async function () {
 // reset de id, para poder ter a função adicionar uma nova tarefa de volta 
 function backToHome() {
   localStorage.setItem("idAtual", -1);
-  window.location.href = "./scrum-board.html";
+  window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/scrum-board.html";
 }
 /*---------------*/
 /*---------------*/

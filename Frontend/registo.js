@@ -5,7 +5,7 @@ const messageElement = document.getElementById("message");
 window.onload = function () {
   if (!localStorage.getItem("username") || !localStorage.getItem("password")) {
   // redireccionar, caso não haja username ou password na localstorage
-  window.location.href = "login.html";
+  window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/index.html";
   }
 }
 
@@ -48,7 +48,7 @@ async function addUser(form) {
     if (response.status == 201) {
       messageElement.textContent = "Username created successfully";
       messageElement.style.color = "green";
-      window.location.href = "index.html";
+      window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/index.html";
     } else if (response.status == 400) {
       messageElement.textContent = "Username already exists";
       messageElement.style.color = "red";

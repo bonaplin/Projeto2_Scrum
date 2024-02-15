@@ -15,7 +15,7 @@ const containers = document.querySelectorAll(".coluna");
 //Criação do botão logout que ao carregar nos leva para a página do login
 const logout = document.getElementById("logout");
 logout.addEventListener("click", () => {
-  window.location.href = "./index.html";
+  window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/index.html";
   localStorage.clear();
   sessionStorage.clear();
 });
@@ -23,7 +23,7 @@ logout.addEventListener("click", () => {
 //
 const editProfile = document.getElementById("editProfile");
 editProfile.addEventListener("click", () => {
-  window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/index.html"
+  window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/edit-register.html"
 })
 /* ---------------------------- */
 
@@ -38,7 +38,7 @@ console.log("a");
 window.onload = function () {
   if (!localStorage.getItem("username") || !localStorage.getItem("password")) {
   // redireccionar, caso não haja username ou password na localstorage
-  window.location.href = "login.html";
+  window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/index.html";
   }
   console.log("1");
   if (localStorage.getItem("username")) {
@@ -161,7 +161,7 @@ function createElements(task) {
     let clickedId = e.target.id; //obtém o id da task clicada
     //alert(clickedId);
     localStorage.setItem("idAtual", clickedId); //guarda no localStorage o id dessa task como o atual para usar na edição da mesma
-    window.location.href = "./edit-task.html"; //e ao ser carregada abre a página html "edit-task.html"
+    window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/edit-task.html"; //e ao ser carregada abre a página html "edit-task.html"
   });
   column.appendChild(newTaskElement); //por fim adiciona o elemento à coluna respetiva dessa task
 }
@@ -290,7 +290,7 @@ function findTaskById(id) {
 
 //Função para voltar para o scrum-board.html
 function backToHome() {
-  window.location.href = "./scrum-board.html";
+  window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/scrum-board.html";
 }
 
 // Gravar os arrays em localStorage
@@ -312,11 +312,11 @@ function eliminateTask(targetCurrentStatus, targetTaskId) {
 }
 
 function openEditProfile() {
-  window.location.href = "./edit-register.html";
+  window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/edit-register.html";
 }
 
 function openEditTask() {
-  window.location.href = "./edit-task.html";
+  window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/edit-task.html";
 }
 
 async function updateTasksUI(username) {
