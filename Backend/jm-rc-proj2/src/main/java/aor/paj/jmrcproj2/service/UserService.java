@@ -1,6 +1,7 @@
 package aor.paj.jmrcproj2.service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import aor.paj.jmrcproj2.bean.UserBean;
 import aor.paj.jmrcproj2.dto.Task;
@@ -95,11 +96,11 @@ public class UserService {
         User user = userBean.getUserByUsername(username);
 
         if (user != null) {
-            List<Task> tasks = user.getTasks();
-
+            ArrayList<Task> tasks = user.getTasks();
+            userBean.sortTasks(tasks);
             return Response.status(Response.Status.OK).entity(tasks).build();
         } else {
-            return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
+            return Response.status(Response.Status.BAD_REQUEST).entity("User not found").build();
         }
     }
 
