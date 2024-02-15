@@ -218,6 +218,7 @@ public class UserBean {
         return tasks;
     }
 
+
     public static String convertLocalDateToJsDate(LocalDate localDate) {
         // Convert the LocalDate object to a string in the format "YYYY-MM-DD"
         String dateString = localDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
