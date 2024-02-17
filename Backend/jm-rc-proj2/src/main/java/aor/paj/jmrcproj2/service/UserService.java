@@ -121,23 +121,19 @@ public class UserService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateTask(@PathParam("username") String username,@PathParam("taskId") String taskId, Task task, @HeaderParam("username") String usernameH, @HeaderParam("password") String password) {
-        if(usernameH == null || password == null){ //if the user is not have permission
-            return Response.status(Response.Status.UNAUTHORIZED).build();
-        }
-        User loggedUser = userBean.verifyUser(usernameH, password);
-        if (loggedUser == null) {
-            return Response.status(Response.Status.FORBIDDEN).build();
-        }
-        if(userBean.isLoggedUser(usernameH, username)) {
-            Task updatedTask = userBean.updateTask(username, taskId, task);
-            if (updatedTask != null) {
-                return Response.status(200).entity(updatedTask).build();
-            } else {
-                return Response.status(Response.Status.NOT_FOUND).build();
+        int responseStatus = userBean.authenticateUser(username, password);
+        if (responseStatus == 200) {
+            // confirmação se header e path são iguais
+            if (userBean.isLoggedUser(usernameH, username)) {
+                Task updatedTask = userBean.updateTask(username, taskId, task);
+                if (updatedTask == null) {
+                    responseStatus = 400;
+                }
+            }else{
+                responseStatus = 403;
             }
-        }else{
-            return Response.status(Response.Status.FORBIDDEN).build();
         }
+        return Response.status(responseStatus).build();
     }
     //R9
     @POST
@@ -145,23 +141,21 @@ public class UserService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addTask(@PathParam("username") String username, Task task, @HeaderParam("username") String usernameH, @HeaderParam("password") String password) {
-        if(usernameH == null || password == null){ //if the user is not have permission
-            return Response.status(Response.Status.UNAUTHORIZED).build();
-        }
-        User loggedUser = userBean.verifyUser(usernameH, password);
-        if (loggedUser == null) {
-            return Response.status(Response.Status.FORBIDDEN).build();
-        }
-        if(userBean.isLoggedUser(usernameH, username)) {
-            Task newTask = userBean.addTask(username, task);
-            if (newTask != null) {
-                return Response.status(201).entity(newTask).build();
+        int responseStatus = userBean.authenticateUser(username, password);
+        if (responseStatus == 200) {
+            // confirmação se header e path são iguais
+            if (userBean.isLoggedUser(usernameH, username)) {
+                Task newTask = userBean.addTask(username, task);
+                if (newTask == null) {
+                    responseStatus = 400;
+                }else{
+                    responseStatus = 201;
+                }
             } else {
-                return Response.status(Response.Status.NOT_FOUND).build();
+                responseStatus = 403;
             }
-        }else{
-            return Response.status(Response.Status.FORBIDDEN).build();
         }
+        return Response.status(responseStatus).build();
     }
 
     //R10

@@ -156,6 +156,9 @@ public class UserBean {
 
     public Task addTask(String username, Task task) {
         User user = getUserByUsername(username);
+        if(task.getName() == null || task.getDescription() == null){
+            user = null;
+        }
         if (user != null) {
             ArrayList<Task> tasks = user.getTasks();
             String newId = "task" + task.increaseCodeTask();
