@@ -1,18 +1,11 @@
 package com.mycompany.clientapi;
+import jakarta.json.JsonValue;
 import jakarta.json.Json;
 import jakarta.json.JsonArray;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
-import jakarta.ws.rs.client.Client;
-import jakarta.ws.rs.client.ClientBuilder;
-import jakarta.ws.rs.client.Entity;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-
 import java.io.StringReader;
+
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -44,10 +37,7 @@ public class UserClient {
         }
     }
     public static void addUser(int numUsers){
-        System.out.println("Adding " + numUsers + " users -----------------");
-
         HttpClient client = HttpClient.newHttpClient();
-        System.out.println("Client created");
         String randomUserApiUrl = "https://randomuser.me/api/?results=" + numUsers;
 
         System.out.println("Sending request to " + randomUserApiUrl);
@@ -58,24 +48,33 @@ public class UserClient {
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             System.out.println("Sucess TRY");
-            System.out.println(response.body());
+            String responseBody = response.body();
+            if(responseBody != null) System.out.println("Reponse ok");
 
-/*
+            /*
+            //FALHA AO TENTAR CONVERTER PARA JSON
+            JsonReader jsonReader = Json.createReader(new StringReader(responseBody));
+            JsonObject jsonObject = jsonReader.readObject();
+            JsonArray results = jsonObject.getJsonArray("results");
+
+            for (JsonValue result : results) {
+                JsonObject jsonUser = result.asJsonObject();
                 User user = new User();
                 user.setUsername(jsonUser.getJsonObject("login").getString("username"));
                 user.setPassword(jsonUser.getJsonObject("login").getString("password"));
                 user.setEmail(jsonUser.getString("email"));
-                user.setFirstName(name.getJsonObject("name").getString("first"));
-                user.setLastName(name.getJsonObject("name").getString("last"));
+                user.setFirstName(jsonUser.getJsonObject("name").getString("first"));
+                user.setLastName(jsonUser.getJsonObject("name").getString("last"));
                 user.setTelephone(jsonUser.getString("phone"));
-                user.setPhoto(jsonUser.getJsonObject("picture").getString("medium"));*/
-
+                user.setPhoto(jsonUser.getJsonObject("picture").getString("medium"));
+            }
+            */
         }catch (Exception e){
             System.out.println("Error sending request");
         }
-        System.out.println("Response received");
 
 
+        System.out.println("out of try catch block");
     }
 
 
