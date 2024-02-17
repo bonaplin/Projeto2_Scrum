@@ -115,7 +115,7 @@ public class UserService {
         return Response.status(responseStatus).build();
     }
 
-    //R8 -
+    //R8
     @POST
     @Path("/{username}/tasks/{taskId}")
     @Consumes(MediaType.APPLICATION_JSON)

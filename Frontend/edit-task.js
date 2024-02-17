@@ -135,7 +135,7 @@ async function addOrUpdateTask() {
         console.log("Task added successfully");
         backToHome();
       } else {
-        throw new Error(`Failed to add task with status: ${response.status}`);
+        alert("Insert name and description for a new task")
       }
     } catch (error) {
       console.log("C");
@@ -163,8 +163,6 @@ async function updateTask(username, password, taskId, task) {
     .then((response) => {
       if (response.status === 200) {
         console.log("Task updated successfully");
-        
-        return response.json();
       } else {
         throw new Error(`Failed to update task with status: ${response.status}`);
       }

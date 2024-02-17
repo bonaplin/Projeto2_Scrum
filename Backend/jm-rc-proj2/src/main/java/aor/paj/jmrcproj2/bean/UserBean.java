@@ -134,24 +134,33 @@ public class UserBean {
                 Objects.equals(user1.getPhoto(), user2.getPhoto());
     }
 
-    public Task updateTask(String username, String taskId, Task task) {
+    public Task updateTask(String username, String taskId, Task newTask) {
         User user = getUserByUsername(username);
         if (user != null) {
             ArrayList<Task> tasks = user.getTasks();
             for (Task t : tasks) {
-                if (t.getTaskId().equals(taskId)) {
-                    t.setName(task.getName());
-                    t.setDescription(task.getDescription());
-                    t.setStartDate(task.getStartDate());
-                    t.setEndDate(task.getEndDate());
-                    t.setStatus(task.getStatus());
-                    t.setStateId(task.getStateId());
+                if (t.getTaskId().equals(taskId) && !areTasksEqual(t, newTask)) {
+                    t.setName(newTask.getName());
+                    t.setDescription(newTask.getDescription());
+                    t.setStartDate(newTask.getStartDate());
+                    t.setEndDate(newTask.getEndDate());
+                    t.setStatus(newTask.getStatus());
+                    t.setStateId(newTask.getStateId());
                     writeIntoJsonFile();
                     return t;
                 }
             }
         }
         return null;
+    }
+
+    public boolean areTasksEqual(Task task1, Task task2) {
+        return task1.getName().equals(task2.getName()) &&
+                task1.getDescription().equals(task2.getDescription()) &&
+                task1.getStartDate().equals(task2.getStartDate()) &&
+                task1.getEndDate().equals(task2.getEndDate()) &&
+                task1.getStatus().equals(task2.getStatus()) &&
+                task1.getStateId() == task2.getStateId();
     }
 
     public Task addTask(String username, Task task) {

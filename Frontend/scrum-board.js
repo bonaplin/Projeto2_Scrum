@@ -232,7 +232,7 @@ async function updateTask(username, password, taskId, task) {
   await fetch(
     `http://localhost:8080/jm-rc-proj2/rest/users/${username}/tasks/${taskId}`,
     {
-      method: "POST", // or "PUT" depending on your backend API
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         username: username,
@@ -244,18 +244,15 @@ async function updateTask(username, password, taskId, task) {
     .then((response) => {
       if (response.status === 200) {
         console.log("Task updated successfully");
-        // Handle success, if needed
-        return response.json();
       } else {
-        throw new Error(
-          `Failed to update task with status: ${response.status}`
-        );
+        alert("There are no changes")
       }
     })
     .catch((error) => {
       console.error("Error:", error);
     });
 }
+
 async function getTask(username, password, taskId) {
   try {
     const response = await fetch(
