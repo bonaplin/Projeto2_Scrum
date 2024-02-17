@@ -22,7 +22,7 @@
           id="createTask"
           onclick="openEditTask()"
         >
-          Adicionar tarefa
+          Add task
         </button>
         <button
           type="button"
@@ -59,11 +59,11 @@
 
         <!-- Modal -->
         <div id="addTaskModal" class="w-modal w-design w-size w-align">
-          <h2 class="left-align margin">Adicionar Tarefa</h2>
+          <h2 class="left-align margin">Add task</h2>
           <form onsubmit="addTaskModal(); return false;">
             <div class="modal-design">
               <label for="addTaskName" class="left-align margin"
-                ><b>Nome da Tarefa:</b></label
+                ><b>Task name:</b></label
               >
               <input
                 type="text"
@@ -85,7 +85,7 @@
           </form>
           <div class="container-btn margin">
             <button type="submit" class="btn" onclick="addTaskModal(event)">
-              Adicionar
+              Add
             </button>
 
             <button
@@ -93,7 +93,7 @@
               class="btn red"
               id="close-button-color"
             >
-              Cancelar
+              Cancel
             </button>
           </div>
           <div class="center-container error-info" id="error-create"></div>
@@ -102,7 +102,7 @@
         <div class="modal-background" onclick="closeAddTaskModal()"></div>
       </main>
       <footer>
-        AoR - Projeto 1 - Quadro Scrum ®<br />
+        AoR - Project 2 - Quadro Scrum ®<br />
         João Morais, Ricardo Carvalho
       </footer>
     </div>

@@ -1,8 +1,6 @@
 console.log("Script loaded");
-window.onload = function () {
-  localStorage.clear();
-  sessionStorage.clear();
-}
+localStorage.clear();
+sessionStorage.clear();
 
 const login = document.getElementById("login");
 console.log("Login button:", login);
@@ -18,11 +16,11 @@ login.addEventListener("click", () => {
   // Verificar se o username e a password estão preenchidos
   if (username.trim() == "" || password.trim() == "") {
     const error = document.getElementById("error-login");
-    error.textContent = "Verifique o username e a password!";
+    error.textContent = "Introduce your username and password";
   } else {
     console.log("Sending POST request to server");
 
-    // POST request to the server ------------------------------------------
+    // Pedido ao
     fetch("http://localhost:8080/jm-rc-proj2/rest/users/login", {
       method: "POST",
       headers: {
@@ -34,10 +32,10 @@ login.addEventListener("click", () => {
       .then((response) => {
         console.log("Received response from server", response);
         if (response.status === 200) {
+          console.log(response);
           console.log("Login successful");
           localStorage.setItem("username", username);
           localStorage.setItem("password", password);
-
           // retorna se houver um json com o url
           return response.json();
         } else {
@@ -46,8 +44,12 @@ login.addEventListener("click", () => {
       })
       .then((data) => {
         // Carregar a foto na localstorage
+        console.log(data.photo);
         localStorage.setItem("photo", data.photo);
-        window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/scrum-board.html";
+        document.getElementById("username").value = "";
+        document.getElementById("password").value = "";
+        alert(data.message || "User logged in successfully");
+        window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/scrum-board.html";      
       })
       .catch((error) => {
         console.error("Error:", error);

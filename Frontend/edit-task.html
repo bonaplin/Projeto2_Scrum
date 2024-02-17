@@ -8,9 +8,9 @@
   </head>
   <body>
     <div class="w-design w-size w-align">
-      <div class="title"><h2>Editar Tarefa</h2></div>
+      <div class="title"><h2>Edit task</h2></div>
       <div class="modal-design margin">
-        <label class="left-align"><b>Nome da Tarefa:</b></label>
+        <label class="left-align"><b>Task name:</b></label>
         <input type="text" class="text-box box-design" id="taskName">
         <div class="row-container">
           <!-- startDate input -->
@@ -42,7 +42,7 @@
         </div>
       </div>
         <label id="editTaskDescription" class="left-align margin"
-          ><b>Descrição:</b></label
+          ><b>Description:</b></label
         >
         <textarea
           id="taskDescription"
@@ -50,17 +50,18 @@
         ></textarea>
         <div class="container-btn margin">
           <button class="btn green" onclick="addOrUpdateTask()" id="save-btn">Save</button>
-          <button class="btn" onclick="deleteTask()" id="delete-btn">
-            Delete
-          </button>
           <button
             onclick="backToHome()"
             class="btn red"
             id="close-button-color"
           >
           Cancel
-        </button>
-      </div>
+          </button>
+          <button class="btn" onclick="deleteTask()" id="delete-btn">
+            Delete
+          </button>
+          </button>
+        </div>
       <div class="center-container error-info" id="error-edit"></div>
     </div>
     <script src="edit-task.js"></script>

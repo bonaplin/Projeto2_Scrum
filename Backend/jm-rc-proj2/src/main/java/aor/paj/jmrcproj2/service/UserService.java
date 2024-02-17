@@ -3,6 +3,8 @@ package aor.paj.jmrcproj2.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import aor.paj.jmrcproj2.bean.UserBean;
 import aor.paj.jmrcproj2.dto.Task;
 import aor.paj.jmrcproj2.dto.User;
@@ -31,24 +33,51 @@ public class UserService {
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response loginUser(@HeaderParam("username") String username, @HeaderParam("password") String password) {
-        if(username == null || password == null){
-            return Response.status(Response.Status.UNAUTHORIZED).build();
+        int responseStatus;
+        JsonObject userJson = Json.createObjectBuilder().build();
+        if(username.isEmpty() || password.isEmpty()){
+            responseStatus = 401;
+            System.out.println(responseStatus);
+        }else{
+            User existingUser = userBean.verifyUser(username, password);
+
+            if (existingUser != null) {
+                // constrói um objecto JSON que contém informação extra
+                userJson = Json.createObjectBuilder()
+                        .add("message", "User logged in successfully")
+                        .add("photo", existingUser.getPhoto())
+                        .build();
+
+                responseStatus = 200;
+            } else {
+                responseStatus = 404;
+            }
         }
+        return Response.status(responseStatus).entity(userJson.toString()).build();
+    }
 
-        User existingUser = userBean.verifyUser(username, password);
+    @POST
+    @Path("/logout")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response logoutUser(@HeaderParam("username") String username, @HeaderParam("password") String password) {
+        int responseStatus;
+        JsonObject userJson = Json.createObjectBuilder().build();
+        if(username.isEmpty() || password.isEmpty()){
+            responseStatus = 401;
+            System.out.println(responseStatus);
+        }else{
+            User existingUser = userBean.verifyUser(username, password);
 
-        if (existingUser != null) {
-            // Build a JSON object containing user information
-            JsonObject userJson = Json.createObjectBuilder()
-                    .add("message", "User logged in successfully")
-                    .add("photo", existingUser.getPhoto())
-                    .build();
-
-            // Return the JSON object in the response
-            return Response.status(200).entity(userJson.toString()).build();
-        } else {
-            return Response.status(401).entity("Invalid username or password").build();
+            if (existingUser != null) {
+                userJson = Json.createObjectBuilder()
+                        .add("message", "User logged out successfully")
+                        .build();
+                responseStatus = 200;
+            } else {
+                responseStatus = 404;
+            }
         }
+        return Response.status(responseStatus).entity(userJson.toString()).build();
     }
 
     //R3
@@ -120,7 +149,7 @@ public class UserService {
         }
         System.out.println(loggedUser.getUsername());
 
-        User updatedUser = userBean.updateUser(updateRequest, username);
+        User updatedUser = userBean.updateUser(updateRequest, usernameP);
         System.out.println(updatedUser);
 
         if (updatedUser != null) {
