@@ -105,26 +105,14 @@ public class UserService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateUser(@PathParam("username") String usernameP, User updateRequest, @HeaderParam("username") String username, @HeaderParam("password") String password) {
-        System.out.println("1");
-        if(username == null || password == null){
-            return Response.status(Response.Status.UNAUTHORIZED).build();
+        int responseStatus = userBean.authenticateUser(username, password);
+        if (responseStatus == 200){
+            User updatedUser = userBean.updateUser(updateRequest, usernameP);
+            if (updatedUser == null) {
+                responseStatus = 400;
+            }
         }
-        User loggedUser = userBean.verifyUser(username, password);
-        if (loggedUser == null) {
-            return Response.status(Response.Status.FORBIDDEN).build();
-        }
-        System.out.println(loggedUser.getUsername());
-
-        User updatedUser = userBean.updateUser(updateRequest, usernameP);
-        System.out.println(updatedUser);
-
-        if (updatedUser != null) {
-            System.out.println("ok");
-            return Response.status(200).entity(updatedUser).build();
-        } else {
-            System.out.println("not ok");
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
+        return Response.status(responseStatus).build();
     }
 
     //R8 -

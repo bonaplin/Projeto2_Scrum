@@ -41,12 +41,11 @@ document.addEventListener('DOMContentLoaded', function() {
 /* ---------------------------- */
 
 //Criação do botão logout que ao carregar nos leva para a página do login
-const logout = document.getElementById("logout");
-logout.addEventListener("click", () => {
-  window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/index.html";
-  localStorage.clear();
-  sessionStorage.clear();
-});
+function logout() {
+    window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/index.html";
+    localStorage.clear();
+    sessionStorage.clear();
+}
 
 //
 const editProfile = document.getElementById("editProfile");

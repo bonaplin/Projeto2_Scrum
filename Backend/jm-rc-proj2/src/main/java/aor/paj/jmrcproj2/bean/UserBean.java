@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 import aor.paj.jmrcproj2.dto.Task;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -94,12 +95,12 @@ public class UserBean {
     }
 
     public User updateUser(User updatedUser, String username) {
-        // Find the user by username
-        System.out.println("3");
 
         User existingUser = getUserByUsername(username);
-        System.out.println("4");
-
+        // impede o update se o objecto for o mesmo
+        if (areUsersEqual(updatedUser, existingUser)) {
+            existingUser = null;
+        }
         if (existingUser != null) {
             existingUser.setPassword(updatedUser.getPassword());
             existingUser.setEmail(updatedUser.getEmail());
@@ -107,18 +108,30 @@ public class UserBean {
             existingUser.setLastName(updatedUser.getLastName());
             existingUser.setTelephone(updatedUser.getTelephone());
             existingUser.setPhoto(updatedUser.getPhoto());
-            System.out.println("5");
 
-            // Save the updated user information to the file
             writeIntoJsonFile();
 
             return existingUser;
         } else {
-            System.out.println("6");
-
-            // User not found
             return null;
         }
+    }
+
+    private boolean areUsersEqual(User user1, User user2) {
+        if (user1 == user2) {
+            return true;
+        }
+
+        if (user1 == null || user2 == null) {
+            return false;
+        }
+
+        return Objects.equals(user1.getPassword(), user2.getPassword()) &&
+                Objects.equals(user1.getEmail(), user2.getEmail()) &&
+                Objects.equals(user1.getFirstName(), user2.getFirstName()) &&
+                Objects.equals(user1.getLastName(), user2.getLastName()) &&
+                Objects.equals(user1.getTelephone(), user2.getTelephone()) &&
+                Objects.equals(user1.getPhoto(), user2.getPhoto());
     }
 
     public Task updateTask(String username, String taskId, Task task) {

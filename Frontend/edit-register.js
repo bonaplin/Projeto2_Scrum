@@ -78,19 +78,14 @@ async function save() {
                 photo: photo,
             }),
         });
-
+        console.log(response);
         if (!response.ok) {
             console.log(response.status)
-            throw new Error(`HTTP error! Status: ${response.status}`);
+            alert("There were no changes in the data");
         } else{
-            console.log("nooooooo")
+            alert("save successful");
+            updateSuccess();
         } 
-
-        // aguarda a resposta
-        const updatedUserData = await response.json();
-        localStorage.setItem("photo", photo);
-        updateSuccess();
-        
     } catch (error) {
         console.error("Error updating information: ", error);
     }
