@@ -8,6 +8,34 @@
 let clickedId = -1;
 localStorage.setItem("idAtual", clickedId);
 const containers = document.querySelectorAll(".coluna");
+
+// ir buscar a photo ao backend
+document.addEventListener('DOMContentLoaded', function() {
+    const username = localStorage.getItem("username");
+    const password = localStorage.getItem("password");
+    
+    fetch(`http://localhost:8080/jm-rc-proj2/rest/users/${username}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "username": username,
+        "password": password,
+      },
+    })
+    //conversão de resposta para json
+    .then(response => response.json())
+    .then(data => {
+      // seleccionar a foto do objecto data
+      const userPhoto = data.photo;
+            
+      // colocar a foto no elemento
+      const userPhotoElement = document.getElementById('profilePhoto');
+      userPhotoElement.src = userPhoto;
+    })
+    .catch(error => {
+      console.error('Error fetching user info:', error);
+    });
+});
 /* ---------------------------- */
 
 /* ---------------------------- */

@@ -34,26 +34,19 @@ public class UserService {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response loginUser(@HeaderParam("username") String username, @HeaderParam("password") String password) {
         int responseStatus;
-        JsonObject userJson = Json.createObjectBuilder().build();
         if(username.isEmpty() || password.isEmpty()){
             responseStatus = 401;
             System.out.println(responseStatus);
         }else{
             User existingUser = userBean.verifyUser(username, password);
-
             if (existingUser != null) {
-                // constrói um objecto JSON que contém informação extra
-                userJson = Json.createObjectBuilder()
-                        .add("message", "User logged in successfully")
-                        .add("photo", existingUser.getPhoto())
-                        .build();
-
                 responseStatus = 200;
             } else {
                 responseStatus = 404;
             }
         }
-        return Response.status(responseStatus).entity(userJson.toString()).build();
+        System.out.println(responseStatus);
+        return Response.status(responseStatus).build();
     }
 
     @POST

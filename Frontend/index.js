@@ -36,28 +36,17 @@ login.addEventListener("click", () => {
           console.log("Login successful");
           localStorage.setItem("username", username);
           localStorage.setItem("password", password);
-          // retorna se houver um json com o url
-          return response.json();
+          document.getElementById("username").value = "";
+          document.getElementById("password").value = "";
+          alert("User logged in successfully");
+          window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/scrum-board.html"; 
         } else {
-          throw new Error(`Login failed with status: ${response.status}`);
+          console.error("Error:", response);
+          const errorElement = document.getElementById("error-login");
+          errorElement.textContent = "Invalid username or password";
         }
-      })
-      .then((data) => {
-        // Carregar a foto na localstorage
-        console.log(data.photo);
-        localStorage.setItem("photo", data.photo);
-        document.getElementById("username").value = "";
-        document.getElementById("password").value = "";
-        alert(data.message || "User logged in successfully");
-        window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/scrum-board.html";      
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        const errorElement = document.getElementById("error-login");
-        errorElement.textContent = "Invalid username or password";
       });
-    //POST request to the server ------------------------------------------
-  }
+    }
 });
 
 /* Função para ver a password através da checkbox */
