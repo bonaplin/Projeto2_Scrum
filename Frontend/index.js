@@ -2,8 +2,13 @@ console.log("Script loaded");
 window.onload = function () {
   localStorage.clear();
   sessionStorage.clear();
-}
-
+};
+document
+  .querySelector("#createAccountLink")
+  .addEventListener("click", function (e) {
+    window.location.href =
+      "http://localhost:8080/jm-rc-proj2-frontend/registo.html";
+  });
 const login = document.getElementById("login");
 console.log("Login button:", login);
 
@@ -27,8 +32,8 @@ login.addEventListener("click", () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "username": username,
-        "password": password,
+        username: username,
+        password: password,
       },
     })
       .then((response) => {
@@ -47,7 +52,8 @@ login.addEventListener("click", () => {
       .then((data) => {
         // Carregar a foto na localstorage
         localStorage.setItem("photo", data.photo);
-        window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/scrum-board.html";
+        window.location.href =
+          "http://localhost:8080/jm-rc-proj2-frontend/scrum-board.html";
       })
       .catch((error) => {
         console.error("Error:", error);

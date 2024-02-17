@@ -3,11 +3,12 @@ const submit = document.getElementById("submit");
 const messageElement = document.getElementById("message");
 
 window.onload = function () {
-  if (!localStorage.getItem("username") || !localStorage.getItem("password")) {
-  // redireccionar, caso não haja username ou password na localstorage
-  window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/index.html";
+  if (localStorage.getItem("username") || localStorage.getItem("password")) {
+    // redireccionar, caso não haja username ou password na localstorage
+    window.location.href =
+      "http://localhost:8080/jm-rc-proj2-frontend/index.html";
   }
-}
+};
 
 submit.addEventListener("click", function (event) {
   event.preventDefault();
@@ -48,7 +49,8 @@ async function addUser(form) {
     if (response.status == 201) {
       messageElement.textContent = "Username created successfully";
       messageElement.style.color = "green";
-      window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/index.html";
+      window.location.href =
+        "http://localhost:8080/jm-rc-proj2-frontend/index.html";
     } else if (response.status == 400) {
       messageElement.textContent = "Username already exists";
       messageElement.style.color = "red";
@@ -78,3 +80,4 @@ function verifyFields() {
   }
   return temp;
 }
+module.exports.verifyFields = verifyFields;
