@@ -225,6 +225,21 @@ public class UserBean {
         // Append "T00:00:00.000Z" to the date string to create a JavaScript-compatible date string
         return dateString + "T00:00:00.000Z";
     }
+
+    public int authenticateUser(String username, String password) {
+        int responseStatus;
+        if(username.isEmpty() || password.isEmpty()){
+            responseStatus = 401;
+        }else{
+            User existingUser = verifyUser(username, password);
+            if (existingUser != null) {
+                responseStatus = 200;
+            } else {
+                responseStatus = 404;
+            }
+        }
+        return responseStatus;
+    }
 //METHOD FOR TESTING ---------------------------------------------------------------------------------------------------
     public String getDate(String username, String taskId) {
         User user = getUserByUsername(username);

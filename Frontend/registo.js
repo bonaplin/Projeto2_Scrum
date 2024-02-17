@@ -12,9 +12,8 @@ submit.addEventListener("click", function (event) {
 });
 
 async function addUser(form) {
-  console.log("inside addUser function");
   let user = {
-    // trim to remove white spaces
+    // trim para remover espaços no início e fim
     idUser: 0,
     username: form.usernameRegister.value.trim(),
     password: form.passwordRegister.value.trim(),
@@ -24,13 +23,10 @@ async function addUser(form) {
     telephone: form.phoneRegister.value.trim(),
     photo: form.photoRegister.value.trim(),
   };
-  console.log(user);
-  console.log("deu certo");
 
   await fetch("http://localhost:8080/jm-rc-proj2/rest/users/register", {
     method: "POST",
     headers: {
-      Accept: "*/*",
       "Content-Type": "application/json",
     },
 

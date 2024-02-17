@@ -33,19 +33,7 @@ public class UserService {
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response loginUser(@HeaderParam("username") String username, @HeaderParam("password") String password) {
-        int responseStatus;
-        if(username.isEmpty() || password.isEmpty()){
-            responseStatus = 401;
-            System.out.println(responseStatus);
-        }else{
-            User existingUser = userBean.verifyUser(username, password);
-            if (existingUser != null) {
-                responseStatus = 200;
-            } else {
-                responseStatus = 404;
-            }
-        }
-        System.out.println(responseStatus);
+        int responseStatus = userBean.authenticateUser(username, password);
         return Response.status(responseStatus).build();
     }
 
@@ -53,24 +41,8 @@ public class UserService {
     @Path("/logout")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response logoutUser(@HeaderParam("username") String username, @HeaderParam("password") String password) {
-        int responseStatus;
-        JsonObject userJson = Json.createObjectBuilder().build();
-        if(username.isEmpty() || password.isEmpty()){
-            responseStatus = 401;
-            System.out.println(responseStatus);
-        }else{
-            User existingUser = userBean.verifyUser(username, password);
-
-            if (existingUser != null) {
-                userJson = Json.createObjectBuilder()
-                        .add("message", "User logged out successfully")
-                        .build();
-                responseStatus = 200;
-            } else {
-                responseStatus = 404;
-            }
-        }
-        return Response.status(responseStatus).entity(userJson.toString()).build();
+        int responseStatus = userBean.authenticateUser(username, password);
+        return Response.status(responseStatus).build();
     }
 
     //R3
@@ -106,7 +78,8 @@ public class UserService {
 
             return Response.ok(user).build();
         } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            // é preferível um 404
+            return Response.status(404).build();
         }
     }
 
@@ -122,7 +95,7 @@ public class UserService {
             userBean.sortTasks(tasks);
             return Response.status(Response.Status.OK).entity(tasks).build();
         } else {
-            return Response.status(Response.Status.BAD_REQUEST).entity("User not found").build();
+            return Response.status(404).build();
         }
     }
 

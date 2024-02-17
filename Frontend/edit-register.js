@@ -31,10 +31,11 @@ async function getUserInfo(username){
             },
         });
         if (!response.ok){
-            throw new Error(`HTTP error! Status: ${response.status}`)
-        }
-        const dataUser = await response.json();
-        populateFormEdit(dataUser);
+            alert(`Error retrieving information! HTTP error: ${response.status}`);
+        }else{
+            const dataUser = await response.json();
+            populateFormEdit(dataUser);
+        }        
     }catch (error){
         console.error("Error retrieving information: ", error)
     }
