@@ -1,0 +1,916 @@
+{
+	"info": {
+		"_postman_id": "76aee759-6446-4eb5-a303-f35232eb5b8c",
+		"name": "Projecto2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32788019"
+	},
+	"item": [
+		{
+			"name": "R1: Login 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "username",
+						"value": "{{username}}",
+						"type": "text"
+					},
+					{
+						"key": "password",
+						"value": "{{password}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BaseURL}}/users/login",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R1: Login 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "password",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "username",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BaseURL}}/users/login",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R1: Login 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "password",
+						"value": "z",
+						"type": "text"
+					},
+					{
+						"key": "username",
+						"value": "z",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BaseURL}}/users/login",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R2 Logout 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "username",
+						"value": "{{username}}",
+						"type": "text"
+					},
+					{
+						"key": "password",
+						"value": "{{password}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BaseURL}}/users/logout",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R2: Logout 401",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "password",
+						"value": "",
+						"type": "text"
+					},
+					{
+						"key": "username",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BaseURL}}/users/login",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R2: Logout 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "password",
+						"value": "z",
+						"type": "text"
+					},
+					{
+						"key": "username",
+						"value": "z",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BaseURL}}/users/login",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R3: Register 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"randomUsername124\",\r\n  \"password\": \"randomPassword456\",\r\n  \"email\": \"randomEmail@example.com\",\r\n  \"firstName\": \"Random\",\r\n  \"lastName\": \"User\",\r\n  \"telephone\": \"1234567890\",\r\n  \"photo\": \"https://assets.pokemon.com/assets/cms2/img/pokedex/full/079.png\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users/register",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R3: Register 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"randomUsername123\",\r\n  \"password\": \"randomPassword456\",\r\n  \"email\": \"randomEmail@example.com\",\r\n  \"firstName\": \"Random\",\r\n  \"lastName\": \"User\",\r\n  \"telephone\": \"1234567890\",\r\n  \"photo\": \"https://assets.pokemon.com/assets/cms2/img/pokedex/full/079.png\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users/register",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R4: List all users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"randomUsername123\",\r\n  \"password\": \"randomPassword456\",\r\n  \"email\": \"randomEmail@example.com\",\r\n  \"firstName\": \"Random\",\r\n  \"lastName\": \"User\",\r\n  \"telephone\": \"1234567890\",\r\n  \"photo\": \"https://assets.pokemon.com/assets/cms2/img/pokedex/full/079.png\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R5: Get user profile 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/users/{{username}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"{{username}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R5: Get user profile 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/users/z",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"z"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R6: List tasks of a user 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BaseURL}}/users/{{username}}/tasks",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"{{username}}",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R7: Change user profile 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "username",
+						"value": "randomUsername124",
+						"type": "text"
+					},
+					{
+						"key": "password",
+						"value": "randomPassword456",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"randomEmail@example.com\",\r\n    \"firstName\": \"Random\",\r\n    \"lastName\": \"User\",\r\n    \"password\": \"randomPassword456\",\r\n    \"photo\": \"https://assets.pokemon.com/assets/cms2/img/pokedex/full/079.png\",\r\n    \"tasks\": [],\r\n    \"telephone\": \"1234567890\",\r\n    \"username\": \"randomUsername124\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users/randomUsername124",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"randomUsername124"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R7: Change user profile 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "username",
+						"value": "randomUsername124",
+						"type": "text"
+					},
+					{
+						"key": "password",
+						"value": "randomPassword456",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"randomEmail@example.com\",\r\n    \"firstName\": \"Random\",\r\n    \"lastName\": \"User\",\r\n    \"password\": \"randomPassword456\",\r\n    \"photo\": \"https://assets.pokemon.com/assets/cms2/img/pokedex/full/079.png\",\r\n    \"tasks\": [],\r\n    \"telephone\": \"123456789\",\r\n    \"username\": \"randomUsername124\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users/randomUsername124",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"randomUsername124"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R9: Add task to user tasks 201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "username",
+						"value": "randomUsername124",
+						"type": "text"
+					},
+					{
+						"key": "password",
+						"value": "randomPassword456",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"A task4\",\r\n  \"description\": \"Description\",\r\n  \"startDate\": \"2024-02-08\",\r\n  \"endDate\": \"2024-02-10\",\r\n  \"status\": \"Done\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users/randomUsername124/tasks",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"randomUsername124",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R9: Add task to user tasks 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "username",
+						"value": "randomUsername124",
+						"type": "text"
+					},
+					{
+						"key": "password",
+						"value": "randomPassword456",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"description\": \"Description\",\r\n  \"startDate\": \"2024-02-08\",\r\n  \"endDate\": \"2024-02-10\",\r\n  \"status\": \"Doing\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users/randomUsername124/tasks",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"randomUsername124",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R8: Change task of user tasks 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "username",
+						"value": "randomUsername124",
+						"type": "text"
+					},
+					{
+						"key": "password",
+						"value": "randomPassword456",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Atask2\",\r\n  \"description\": \"Description\",\r\n  \"startDate\": \"2024-02-08\",\r\n  \"endDate\": \"2024-02-10\",\r\n  \"status\": \"Doing\",\r\n  \"stateId\": 100\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users/randomUsername124/tasks/task22",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"randomUsername124",
+						"tasks",
+						"task22"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R8: Change task of user tasks 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "username",
+						"value": "randomUsername124",
+						"type": "text"
+					},
+					{
+						"key": "password",
+						"value": "randomPassword456",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Atask2\",\r\n  \"description\": \"Description\",\r\n  \"startDate\": \"2024-02-08\",\r\n  \"endDate\": \"2024-02-10\",\r\n  \"status\": \"Doing\",\r\n  \"stateId\": 100\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users/randomUsername124/tasks/task22",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"randomUsername124",
+						"tasks",
+						"task22"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R10: Delete task of user tasks",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 401\", function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "username",
+						"value": "randomUsername124",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Atask2\",\r\n  \"description\": \"Description\",\r\n  \"startDate\": \"2024-02-08\",\r\n  \"endDate\": \"2024-02-10\",\r\n  \"status\": \"Doing\",\r\n  \"stateId\": 100\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users/randomUsername124/tasks/task22",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"randomUsername124",
+						"tasks",
+						"task22"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "R10: Delete task of user tasks Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "username",
+						"value": "randomUsername124",
+						"type": "text"
+					},
+					{
+						"key": "password",
+						"value": "randomPassword456",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Atask2\",\r\n  \"description\": \"Description\",\r\n  \"startDate\": \"2024-02-08\",\r\n  \"endDate\": \"2024-02-10\",\r\n  \"status\": \"Doing\",\r\n  \"stateId\": 100\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/users/randomUsername124/tasks/task22",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"users",
+						"randomUsername124",
+						"tasks",
+						"task22"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BaseURL",
+			"value": "http://localhost:8080/jm-rc-proj2/rest",
+			"type": "string"
+		}
+	]
+}
