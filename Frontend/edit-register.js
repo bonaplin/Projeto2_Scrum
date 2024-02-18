@@ -17,8 +17,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // vai buscar o username na localstorage
     getUserInfo(storedUsername);
     document.getElementById("register-form").addEventListener("submit", function (event) {
-        event.preventDefault(); // Prevent the default form submission
-        save(); // Call the save function
+        event.preventDefault(); // Previne o default de submmit
+        save();
     });
 });
 
