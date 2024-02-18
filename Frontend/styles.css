@@ -59,7 +59,7 @@ h3 {
 .w-size {
   margin: 50px auto;
   padding: 20px;
-  width:75vb;
+  width: 75vb;
 }
 /*Posicionamento dos elementos*/
 .w-align {
@@ -214,11 +214,17 @@ h3 {
   vertical-align: middle;
   padding: 5px;
   box-shadow: 0.5px 2px 0.5px black;
+  height: 2rem;
 }
 .btn:hover {
   background-color: #1c3743;
   color: white;
   box-shadow: none;
+}
+.btn-main {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
 }
 /* Username no quadro Scrum */
 #nomeAaparecerNoEcra {
@@ -314,7 +320,7 @@ form {
   padding: 20px;
 }
 
-#usernameRegister2{
+#usernameRegister2 {
   background-color: #b7b5b0;
   cursor: default;
 }
@@ -334,6 +340,6 @@ form {
   margin-right: 10px;
 }
 
-.row-container{
+.row-container {
   margin-top: 20px;
 }

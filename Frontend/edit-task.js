@@ -1,34 +1,43 @@
-/*---------------*/
-/* variável taskId sleccionada no scrum-board.html. Caso o valor for -1, então é para adicionar nova tarefa.
-  variáveis username e password para mandar nos headers.
-*/
+// Variável taskId sleccionada no scrum-board.html. Caso o valor for -1, então é para adicionar nova tarefa.
+// variáveis username e password para mandar nos headers.
+
 let idAtual = localStorage.getItem("idAtual");
 let username = localStorage.getItem("username");
 let password = localStorage.getItem("password");
+let msg = document.getElementById("error-edit");
 
 window.onload = async function () {
   if (!localStorage.getItem("username") || !localStorage.getItem("password")) {
-  // redireccionar, caso não haja username ou password na localstorage
-  window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/index.html";
+    // redireccionar, caso não haja username ou password na localstorage
+    window.location.href =
+      "http://localhost:8080/jm-rc-proj2-frontend/index.html";
   }
+  // Se não houver idAtual ou se idAtual for "-1" então é para adicionar uma nova tarefa
+  // idAtual é o id da task selecionada
   if (!idAtual || idAtual === "-1") {
     document.getElementById("delete-btn").disabled = true;
     document.getElementById("save-btn").innerText = "Add";
+    document.querySelector("#w-title h2").innerText = "Add Task";
+    const dropDown = document.getElementById("statusComboBox");
+    dropDown.value = "To Do";
+    dropDown.disabled = true;
   } else {
     const username = localStorage.getItem("username");
     const password = localStorage.getItem("password");
-
     // Procura a informação da task no backend
     try {
-      const response = await fetch(`http://localhost:8080/jm-rc-proj2/rest/users/${username}/tasks/${idAtual}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "username": username,
-          "password": password,
-        },
-      });
-
+      const response = await fetch(
+        `http://localhost:8080/jm-rc-proj2/rest/users/${username}/tasks/${idAtual}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            username: username,
+            password: password,
+          },
+        }
+      );
+      // Se a resposta for bem sucedida, preenche os campos do formulário com a informação da tarefa
       if (response.status === 200) {
         const task = await response.json();
         document.getElementById("taskName").value = task.name;
@@ -50,15 +59,14 @@ window.onload = async function () {
   }
 };
 
-// reset de id, para poder ter a função adicionar uma nova tarefa de volta 
+// Reset de id, para poder ter a função adicionar uma nova tarefa de volta
 function backToHome() {
   localStorage.setItem("idAtual", -1);
-  window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/scrum-board.html";
+  window.location.href =
+    "http://localhost:8080/jm-rc-proj2-frontend/scrum-board.html";
 }
-/*---------------*/
-/*---------------*/
 
-// função para salvar a tarefa no dia de hoje caso o campo de startDate não seja preenchido
+// Função para salvar a tarefa no dia de hoje caso o campo de startDate não seja preenchido
 function getCurrentDateFormatted() {
   const currentDate = new Date();
 
@@ -73,7 +81,7 @@ function getCurrentDateFormatted() {
   return formattedDate;
 }
 
-/* Função para adicionar ou gravar tasks */
+// Função para adicionar ou gravar tasks
 async function addOrUpdateTask() {
   let taskName = document.getElementById("taskName").value;
   let startDate = document.getElementById("startDate").value;
@@ -85,13 +93,14 @@ async function addOrUpdateTask() {
   let startDate2 = new Date(startDate);
   let endDate2 = new Date(endDate);
 
+  // Se o nome da tarefa ou a descrição estiverem vazios, mostra um alerta e retorna
   if (taskName.trim() === "" || taskDescription.trim() === "") {
-    alert("Task name and description cannot be empty");
+    msg.innerHTML = "Task name and description cannot be empty";
     return;
   }
 
   if (startDate2 > endDate2) {
-    alert("Start date should be before end date");
+    msg.innerHTML = "Start date should be before end date";
     return;
   }
 
@@ -103,9 +112,6 @@ async function addOrUpdateTask() {
     endDate = null;
   }
 
-  console.log(startDate);
-  console.log(endDate);
-
   let task = {
     name: taskName,
     startDate: startDate,
@@ -116,92 +122,91 @@ async function addOrUpdateTask() {
   };
 
   if (!idAtual || idAtual === "-1") {
-    console.log("A");
-    console.log(task);
     try {
-      const response = await fetch(`http://localhost:8080/jm-rc-proj2/rest/users/${username}/tasks`, {
-        method: "POST",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-          "username": username,
-          "password": password,
-        },
-        body: JSON.stringify(task),
-      });
+      const response = await fetch(
+        `http://localhost:8080/jm-rc-proj2/rest/users/${username}/tasks`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            username: username,
+            password: password,
+          },
+          body: JSON.stringify(task),
+        }
+      );
 
       if (response.status === 201) {
-        console.log("B");
         console.log("Task added successfully");
         backToHome();
       } else {
-        alert("Insert name and description for a new task")
+        msg.innerHTML = "Insert name and description for a new task";
       }
     } catch (error) {
-      console.log("C");
       console.error("Error:", error);
     }
   } else {
-    
     await updateTask(username, password, idAtual, task);
     backToHome();
   }
 }
-
-
-
+// Função para atualizar uma tarefa no backend
 async function updateTask(username, password, taskId, task) {
-  await fetch(`http://localhost:8080/jm-rc-proj2/rest/users/${username}/tasks/${taskId}`, {
-    method: "POST", 
-    headers: {
-      "Content-Type": "application/json",
-      "username": username,
-      "password": password,
-    },
-    body: JSON.stringify(task),
-  })
+  await fetch(
+    `http://localhost:8080/jm-rc-proj2/rest/users/${username}/tasks/${taskId}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        username: username,
+        password: password,
+      },
+      body: JSON.stringify(task),
+    }
+  )
     .then((response) => {
       if (response.status === 200) {
         console.log("Task updated successfully");
       } else {
-        throw new Error(`Failed to update task with status: ${response.status}`);
+        throw new Error(
+          `Failed to update task with status: ${response.status}`
+        );
       }
     })
     .catch((error) => {
       console.error("Error:", error);
     });
 }
-
-async function deleteTask (){
+// Função para deletar uma tarefa no backend
+async function deleteTask() {
   let username = localStorage.getItem("username");
   let password = localStorage.getItem("password");
   let taskId = localStorage.getItem("idAtual");
   try {
-  const response = await fetch(`http://localhost:8080/jm-rc-proj2/rest/users/${username}/tasks/${taskId}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      "username": username,
-      "password": password,
-    },
-  });
-
-  if (response.status === 200) {
-    console.log("Task deleted successfully");
-    backToHome();
-  } else if (response.status === 404) {
-    console.log("Task not found");
-  } else if (response.status === 403) {
-    console.log("Forbidden");
-  } else {
-    console.error(`Failed to delete task: ${taskId}`);
+    const response = await fetch(
+      `http://localhost:8080/jm-rc-proj2/rest/users/${username}/tasks/${taskId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          username: username,
+          password: password,
+        },
+      }
+    );
+    // Se a resposta for bem sucedida, redireciona para a página inicial
+    if (response.status === 200) {
+      console.log("Task deleted successfully");
+      backToHome();
+    } else if (response.status === 404) {
+      console.log("Task not found");
+    } else if (response.status === 403) {
+      console.log("Forbidden");
+    } else {
+      console.error(`Failed to delete task: ${taskId}`);
+    }
+  } catch (error) {
+    console.error("Error:", error);
   }
-} catch (error) {
-  console.error("Error:", error);
-  // Handle network errors or other exceptions
 }
-
-}
-
-
-
