@@ -5,7 +5,15 @@ let idAtual = localStorage.getItem("idAtual");
 let username = localStorage.getItem("username");
 let password = localStorage.getItem("password");
 let msg = document.getElementById("error-edit");
-
+let deleteBtn = document.getElementById("delete-btn");
+deleteBtn.addEventListener("click", function (e) {
+  let confirmation = confirm("Are you sure you want to delete this?");
+  if (confirmation) {
+    deleteTask();
+  } else {
+    e.preventDefault();
+  }
+});
 window.onload = async function () {
   if (!localStorage.getItem("username") || !localStorage.getItem("password")) {
     // redireccionar, caso não haja username ou password na localstorage
