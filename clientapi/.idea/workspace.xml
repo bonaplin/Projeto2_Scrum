@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="f5754a28-327a-4010-83a5-314cf34ecee8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Frontend/edit-task.js" beforeDir="false" afterPath="$PROJECT_DIR$/../Frontend/edit-task.js" afterDir="false" />
+    <list default="true" id="036e0e9e-1c5e-49eb-a400-b0a235a6217b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,7 +19,7 @@
   &quot;customColor&quot;: &quot;000000ff&quot;,
   &quot;associatedIndex&quot;: 0
 }</component>
-  <component name="ProjectId" id="2cXmcCiWYApSoObGxNpv4xwAXeK" />
+  <component name="ProjectId" id="2cYHOUNF8rQZ7B5AMHWjrGpwe8m" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -32,18 +35,23 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-322ed176" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f5754a28-327a-4010-83a5-314cf34ecee8" name="Changes" comment="" />
-      <created>1708266374416</created>
+      <changelist id="036e0e9e-1c5e-49eb-a400-b0a235a6217b" name="Changes" comment="" />
+      <created>1708281560833</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1708266374416</updated>
-      <workItem from="1708266375439" duration="12000" />
-      <workItem from="1708266396310" duration="6000" />
-      <workItem from="1708266409229" duration="14000" />
-      <workItem from="1708266438032" duration="16000" />
+      <updated>1708281560833</updated>
+      <workItem from="1708281561943" duration="45000" />
+      <workItem from="1708281832916" duration="22000" />
     </task>
     <servers />
   </component>
