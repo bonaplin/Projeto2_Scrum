@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
     <title>Scrum Board</title>
   </head>
   <body>
     <div class="w-design w-size w-align">
-      <div class="title"><h2>Edit task</h2></div>
+      <div class="title" id="w-title"><h2>Edit task</h2></div>
       <div class="modal-design margin">
         <label class="left-align"><b>Task name:</b></label>
-        <input type="text" class="text-box box-design" id="taskName">
+        <input type="text" class="text-box box-design" id="taskName" />
         <div class="row-container">
           <!-- startDate input -->
           <label class="left-align margin"><b>Start Date:</b></label>
-          <input type="date" id="startDate" class="date-input">
+          <input type="date" id="startDate" class="date-input" />
 
           <!-- endDate input -->
           <label class="left-align margin"><b>End Date:</b></label>
-          <input type="date" id="endDate" class="date-input">
+          <input type="date" id="endDate" class="date-input" />
         </div>
         <!-- Combobox -->
         <div class="row-container">
@@ -41,27 +41,24 @@
           </select>
         </div>
       </div>
-        <label id="editTaskDescription" class="left-align margin"
-          ><b>Description:</b></label
-        >
-        <textarea
-          id="taskDescription"
-          class="text-box box-design description-text"
-        ></textarea>
-        <div class="container-btn margin">
-          <button class="btn green" onclick="addOrUpdateTask()" id="save-btn">Save</button>
-          <button
-            onclick="backToHome()"
-            class="btn red"
-            id="close-button-color"
-          >
+      <label id="editTaskDescription" class="left-align margin"
+        ><b>Description:</b></label
+      >
+      <textarea
+        id="taskDescription"
+        class="text-box box-design description-text"
+      ></textarea>
+      <div class="container-btn margin">
+        <button class="btn green" onclick="addOrUpdateTask()" id="save-btn">
+          Save
+        </button>
+        <button class="btn" onclick="deleteTask()" id="delete-btn">
+          Delete
+        </button>
+        <button onclick="backToHome()" class="btn red" id="close-button-color">
           Cancel
-          </button>
-          <button class="btn" onclick="deleteTask()" id="delete-btn">
-            Delete
-          </button>
-          </button>
-        </div>
+        </button>
+      </div>
       <div class="center-container error-info" id="error-edit"></div>
     </div>
     <script src="edit-task.js"></script>

@@ -5,12 +5,13 @@ const messageElement = document.getElementById("message");
 submit.addEventListener("click", function (event) {
   event.preventDefault();
   console.log("submit btn");
-  //Verify if the fields are filled
+  // Verifica se todos os campos estão preenchidos
   if (verifyFields()) {
     addUser(form);
   }
 });
-
+// Função assíncrona para adicionar um usuário. Cria um objeto user com as informações do formulário,
+// faz uma requisição POST para o servidor para criar o usuário e atualiza a mensagem na UI de acordo com a resposta do servidor.
 async function addUser(form) {
   let user = {
     // trim para remover espaços no início e fim
@@ -37,7 +38,8 @@ async function addUser(form) {
     if (response.status == 201) {
       messageElement.textContent = "Username created successfully";
       messageElement.style.color = "green";
-      window.location.href = "http://localhost:8080/jm-rc-proj2-frontend/index.html";
+      window.location.href =
+        "http://localhost:8080/jm-rc-proj2-frontend/index.html";
     } else if (response.status == 400) {
       messageElement.textContent = "Username already exists";
       messageElement.style.color = "red";
@@ -47,7 +49,8 @@ async function addUser(form) {
     }
   });
 }
-
+// Função para verificar se todos os campos do formulário estão preenchidos. Se algum campo estiver vazio, atualiza a mensagem na UI e retorna false.
+// Se todos os campos estiverem preenchidos, retorna true.
 function verifyFields() {
   let temp = false;
   if (
