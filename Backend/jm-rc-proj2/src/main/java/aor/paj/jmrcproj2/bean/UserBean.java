@@ -135,11 +135,18 @@ public class UserBean {
     }
 
     public Task updateTask(String username, String taskId, Task newTask) {
+        System.out.println("1");
+        System.out.println(newTask);
+        System.out.println(taskId);
         User user = getUserByUsername(username);
         if (user != null) {
             ArrayList<Task> tasks = user.getTasks();
+            System.out.println("2");
             for (Task t : tasks) {
-                if (t.getTaskId().equals(taskId) && !areTasksEqual(t, newTask)) {
+                System.out.println(t.getTaskId());
+                System.out.println(tasks.size());
+                if (t.getTaskId().equals(taskId)) {
+                    System.out.println("3");
                     t.setName(newTask.getName());
                     t.setDescription(newTask.getDescription());
                     t.setStartDate(newTask.getStartDate());

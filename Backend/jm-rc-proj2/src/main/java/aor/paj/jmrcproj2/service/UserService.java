@@ -122,6 +122,7 @@ public class UserService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateTask(@PathParam("username") String username,@PathParam("taskId") String taskId, Task task, @HeaderParam("username") String usernameH, @HeaderParam("password") String password) {
         int responseStatus = userBean.authenticateUser(username, password);
+        System.out.println(taskId);
         if (responseStatus == 200) {
             // confirmação se header e path são iguais
             if (userBean.isLoggedUser(usernameH, username)) {
