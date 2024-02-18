@@ -68,7 +68,7 @@ public class UserClient {
             String responseBody = response.body();
             if(responseBody != null) System.out.println("Reponse ok");
 
-            /*
+
             //FALHA AO TENTAR CONVERTER PARA JSON
             JsonReader jsonReader = Json.createReader(new StringReader(responseBody));
             JsonObject jsonObject = jsonReader.readObject();
@@ -84,10 +84,11 @@ public class UserClient {
                 user.setLastName(jsonUser.getJsonObject("name").getString("last"));
                 user.setTelephone(jsonUser.getString("phone"));
                 user.setPhoto(jsonUser.getJsonObject("picture").getString("medium"));
+                registerUser(user);
             }
 
-            registerUser(user);
-            */
+
+
         }catch (Exception e){
             System.out.println("Error sending request");
         }
